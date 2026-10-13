@@ -265,7 +265,7 @@ main { display: block; }
 .hero-home h1 span:nth-child(2) { animation-delay: 90ms; }
 .hero-home h1 span:nth-child(3) { animation-delay: 180ms; }
 .hero-home h1 span:nth-child(4) { animation-delay: 270ms; }
-.hero-mark { min-width: 0; }
+.hero-mark { min-width: 0; overflow: hidden; }
 .mark-frame {
   position: relative;
   display: inline-block;
@@ -283,13 +283,15 @@ main { display: block; }
   inset: 0;
   pointer-events: none;
   background: linear-gradient(105deg, transparent 40%, rgba(247, 186, 150, 0.55) 50%, transparent 60%);
+  background-size: 300% 100%;
+  background-position: 100% 0;
   -webkit-mask-image: url("../assets/logo/aumakua-mark-copper.png");
   mask-image: url("../assets/logo/aumakua-mark-copper.png");
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  transform: translateX(-120%);
+  transform: none;
   animation: mark-sheen 1400ms ease-in-out 200ms 1 both;
 }
 .hero-actions {
@@ -338,8 +340,8 @@ main { display: block; }
   to { opacity: 1; transform: none; }
 }
 @keyframes mark-sheen {
-  from { transform: translateX(-120%); }
-  to { transform: translateX(120%); }
+  from { background-position: 100% 0; }
+  to { background-position: 0 0; }
 }
 
 .kicker, .metal {
