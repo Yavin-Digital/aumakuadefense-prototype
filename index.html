@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aumakua Defense</title>
+  <meta name="description" content="Aumakua Defense. Where Ancient Protection Meets Modern Precision. Prototype storefront. Product names, prices, and photos have not been supplied.">
+  <link rel="canonical" href="https://aumakuadefense.clientreview.co/index.html">
+  <link rel="icon" href="assets/logo/aumakua-mark-white.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Saira+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/site.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "OnlineStore",
+    "name": "Aumakua Defense",
+    "url": "https://aumakuadefense.com/",
+    "description": "Where Ancient Protection Meets Modern Precision"
+  }
+  </script>
+</head>
+<body data-page="home">
+  <main id="main">
+    <section class="hero">
+      <div class="hero-grain" aria-hidden="true"></div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="photo-flag">PHOTO: client to supply — e.g. field or range work</p>
+        <p class="kicker">Aumakua Defense</p>
+        <h1>Where Ancient Protection Meets Modern Precision</h1>
+        <p class="draft">Draft: The live site is a coming-soon page. This hero is a marked photo slot, not a photograph.</p>
+        <a class="btn" href="shop.html">View the shop</a>
+      </div>
+    </section>
+    <div class="weave" aria-hidden="true"></div>
+    <section class="room">
+      <div class="measure">
+        <p class="kicker">Shop</p>
+        <h2>Four accessories from the store sitemap</h2>
+        <p class="draft">Draft: These are the only products the public sitemap lists. Names, prices, and photos are not published.</p>
+        <div class="catalog" id="home-catalog"></div>
+        <noscript>
+          <ul>
+            <li>EDC Gear Pouch — name TBC. Price: client to supply.</li>
+            <li>IWB Kydex Holster — name TBC. Price: client to supply.</li>
+            <li>Pistol Grip Upgrade — name TBC. Price: client to supply.</li>
+            <li>Tactical EDC Light — name TBC. Price: client to supply.</li>
+          </ul>
+        </noscript>
+      </div>
+    </section>
+    <section class="room band-mark">
+      <div class="measure">
+        <p class="kicker">The owner</p>
+        <h2>Story still to come</h2>
+        <p>[CLIENT TO SUPPLY: owner story]</p>
+        <p>[CLIENT TO SUPPLY: Hawaii roots]</p>
+        <a class="btn btn-line" href="about.html">About</a>
+      </div>
+    </section>
+  </main>
+  <script src="js/site.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/layout.js"></script>
+  <script>
+    document.getElementById("home-catalog").innerHTML = window.AD.products.map(function (product) {
+      var tags = product.tags.map(function (id) {
+        return '<span class="mini-tag">' + window.AD.tagName(id) + "</span>";
+      }).join("");
+      return '<a class="product-tile" href="product.html?id=' + product.id + '">' +
+        '<div class="photo-slot" role="img" aria-label="PRODUCT PHOTO — client to supply"><span>PRODUCT PHOTO — client to supply</span></div>' +
+        '<span class="tile-body"><span class="tile-title">' + window.AD.displayName(product) + "</span>" +
+        '<span class="tile-meta">' + tags + "</span>" +
+        '<span class="tile-price">' + product.priceLabel + "</span></span></a>";
+    }).join("");
+  </script>
+</body>
+</html>

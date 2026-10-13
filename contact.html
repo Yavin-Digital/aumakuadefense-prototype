@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact — Aumakua Defense</title>
+  <meta name="description" content="Contact Aumakua Defense. Phone, email, address, and hours have not been published.">
+  <link rel="canonical" href="https://aumakuadefense.clientreview.co/contact.html">
+  <link rel="icon" href="assets/logo/aumakua-mark-white.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Saira+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body data-page="contact">
+  <main id="main">
+    <div class="page">
+      <p class="kicker">Contact</p>
+      <h1>Drop us a line</h1>
+      <p class="draft">Draft: Rewrite of the live signup form. This prototype does not send the message.</p>
+      <div class="supply">
+        <p>[CLIENT TO SUPPLY: phone]</p>
+        <p>[CLIENT TO SUPPLY: email]</p>
+        <p>[CLIENT TO SUPPLY: address / service area]</p>
+        <p>[CLIENT TO SUPPLY: hours]</p>
+      </div>
+      <form id="contact-form">
+        <label>Name <input name="name" required autocomplete="name"></label>
+        <label>Email <input name="email" type="email" required autocomplete="email"></label>
+        <label>Message <textarea name="message" required></textarea></label>
+        <label class="check"><input type="checkbox" name="list" value="yes"> Sign up for the email list for updates. The list is not connected yet.</label>
+        <button class="btn" type="submit">Send</button>
+        <p id="contact-status" class="form-status" role="status"></p>
+      </form>
+    </div>
+  </main>
+  <script src="js/site.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/store.js"></script>
+</body>
+</html>

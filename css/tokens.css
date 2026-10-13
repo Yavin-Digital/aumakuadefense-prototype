@@ -1,0 +1,27 @@
+/* Aumakua Defense — tokens taken from brand.html.
+   Copper values are measured from assets/logo/aumakua-lockup-copper.png
+   (opaque warm pixels, alpha > 220, luminance percentiles).
+   --brand, --ink, and --paper are proposed and need Mike's sign-off.
+   Do not add a color here that brand.html does not list. */
+
+:root {
+  --accent: #C07A5A;            /* copper mid, measured p50 */
+  --copper-shadow: #673A27;     /* oxide / copper shadow, measured near p08 */
+  --copper-highlight: #DF9A73;  /* measured p75; text on --brand clears WCAG AA */
+  --copper-bright: #F7BA96;     /* measured p90; highlight reference */
+
+  --brand: #2C3324;             /* PROPOSED military green. Darker than mockup wall. */
+  --ink: #1A1916;               /* PROPOSED gunmetal */
+  --paper: #F4F0E8;             /* PROPOSED warm paper */
+
+  --olive-wall: #7D7359;        /* brief sample of the mockup wall; not a room color */
+  --olive-wall-alt: #8A795D;    /* brief sample of the mockup wall; not a room color */
+
+  --font-display: "Saira Condensed", "Arial Narrow", Impact, sans-serif;
+  --font-body: "Barlow", "Segoe UI", sans-serif;
+
+  --measure: 1040px;
+  --shadow: 0 0 100px rgba(0, 0, 0, 0.2);
+  --line: rgba(255, 255, 255, 0.16);
+  --line-ink: rgba(26, 25, 22, 0.16);
+}
