@@ -151,16 +151,37 @@
       '<div><h2><a href="product.html?id=' + esc(line.productId) + '">' + esc(name) + "</a></h2>" +
       "<p>" + esc(variant) + "</p>" +
       '<label>Quantity <input class="line-qty" type="number" min="1" max="99" value="' + esc(line.qty) + '" inputmode="numeric"></label> ' +
-      '<button type="button" class="btn btn-line line-remove">Remove</button></div>' +
+      '<button type="button" class="btn btn-line line-remove" aria-label="Remove ' + esc(name) + '">Remove</button></div>' +
       '<p class="line-amount">' + moneyDash() + "</p></article>";
   }
 
-  function pageCart() {
+  function focusCart(root, restore) {
+    if (!restore) return;
+    var qty = null;
+    if (restore.lineId) {
+      Array.prototype.forEach.call(root.querySelectorAll(".cart-line"), function (row) {
+        if (row.getAttribute("data-line") === restore.lineId) qty = row.querySelector(".line-qty");
+      });
+    }
+    if (!qty) qty = root.querySelector(".line-qty");
+    if (qty) {
+      qty.focus({ preventScroll: true });
+      return;
+    }
+    var heading = root.querySelector("h1");
+    if (heading) {
+      heading.tabIndex = -1;
+      heading.focus();
+    }
+  }
+
+  function pageCart(restore) {
     var root = document.getElementById("cart-root");
     if (!root) return;
     var lines = window.ADCart.lines();
     if (!lines.length) {
       root.innerHTML = "<h1>Cart</h1><p>The cart is empty.</p><p><a class=\"btn\" href=\"shop.html\">View the shop</a></p>";
+      focusCart(root, restore);
       return;
     }
     root.innerHTML =
@@ -178,13 +199,14 @@
       var id = row.getAttribute("data-line");
       row.querySelector(".line-qty").addEventListener("change", function (event) {
         window.ADCart.setQty(id, event.target.value);
-        pageCart();
+        pageCart({ lineId: id });
       });
       row.querySelector(".line-remove").addEventListener("click", function () {
         window.ADCart.remove(id);
-        pageCart();
+        pageCart({ removed: true });
       });
     });
+    focusCart(root, restore);
   }
 
   function pageCheckout() {
@@ -216,17 +238,17 @@
             '<label>Region <input name="region" required autocomplete="address-level1"></label>' +
           "</div>" +
           '<div class="split">' +
-            '<label>Postal code <input name="postal" required autocomplete="postal-code"></label>' +
+            '<label>Postal code <input name="postal" required autocomplete="postal-code" inputmode="numeric" maxlength="12"></label>' +
             '<label>Country <input name="country" required autocomplete="country-name"></label>' +
           "</div>" +
         "</fieldset>" +
         "<fieldset><legend>Payment</legend>" +
           '<p class="pay-note">Prototype — no payment is processed. Card fields are not saved and are not sent to a gateway.</p>' +
           '<label>Name on card <input name="cardname" required autocomplete="cc-name"></label>' +
-          '<label>Card number <input name="cardnumber" required inputmode="numeric" autocomplete="cc-number"></label>' +
+          '<label>Card number <input name="cardnumber" required inputmode="numeric" autocomplete="cc-number" maxlength="23"></label>' +
           '<div class="split">' +
-            '<label>Expiration <input name="exp" required autocomplete="cc-exp" placeholder="MM / YY"></label>' +
-            '<label>Security code <input name="cvc" required inputmode="numeric" autocomplete="cc-csc"></label>' +
+            '<label>Expiration <input name="exp" required inputmode="numeric" autocomplete="cc-exp" placeholder="MM / YY" maxlength="7"></label>' +
+            '<label>Security code <input name="cvc" required inputmode="numeric" autocomplete="cc-csc" maxlength="4"></label>' +
           "</div>" +
         "</fieldset>" +
         '<aside class="summary order-summary">' +
@@ -240,13 +262,41 @@
         "</aside>" +
       "</form>";
 
+    function showFieldErrors(form) {
+      var count = 0;
+      Array.prototype.forEach.call(form.querySelectorAll("input, select, textarea"), function (input) {
+        var id = "err-" + (input.name || input.id);
+        var old = document.getElementById(id);
+        if (old) old.remove();
+        if (!input.checkValidity()) {
+          count += 1;
+          input.setAttribute("aria-invalid", "true");
+          var msg = document.createElement("span");
+          msg.id = id;
+          msg.className = "field-error";
+          msg.textContent = input.validationMessage || "This field needs attention.";
+          input.setAttribute("aria-describedby", id);
+          input.insertAdjacentElement("afterend", msg);
+        } else {
+          input.removeAttribute("aria-invalid");
+          if (input.getAttribute("aria-describedby") === id) input.removeAttribute("aria-describedby");
+        }
+      });
+      return count;
+    }
+
     document.getElementById("checkout-form").addEventListener("submit", function (event) {
       event.preventDefault();
       var form = event.target;
-      if (!form.checkValidity()) {
-        form.reportValidity();
+      var status = document.getElementById("checkout-status");
+      var bad = showFieldErrors(form);
+      if (bad) {
+        if (status) status.textContent = bad + (bad === 1 ? " field needs attention." : " fields need attention.");
+        var first = form.querySelector("[aria-invalid='true']");
+        if (first) first.focus();
         return;
       }
+      if (status) status.textContent = "";
       var data = new FormData(form);
       var token = Math.random().toString(36).slice(2, 6).toUpperCase();
       var order = {

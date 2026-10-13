@@ -1,7 +1,7 @@
 /* Aumakua Defense prototype. Military green, ink, and paper rooms. Copper jewelry. */
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
 body {
   margin: 0;
   background: var(--brand);
@@ -131,7 +131,7 @@ code { font-size: 0.9em; }
 .cart-link {
   color: var(--paper);
   gap: 8px;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(244, 240, 232, 0.55);
 }
 .cart-link svg, .nav-toggle svg {
   width: 22px;
@@ -145,7 +145,7 @@ code { font-size: 0.9em; }
   display: none;
   background: transparent;
   color: var(--paper);
-  border: 1px solid var(--line);
+  border: 1px solid rgba(244, 240, 232, 0.55);
   gap: 8px;
   cursor: pointer;
 }
@@ -163,8 +163,20 @@ code { font-size: 0.9em; }
 .footer-grid { display: grid; gap: 18px; }
 .footer-word { width: min(100%, 280px); height: auto; }
 .site-footer nav { display: flex; flex-wrap: wrap; gap: 8px 16px; }
-.site-footer nav a { min-height: 48px; display: inline-flex; align-items: center; }
+.site-footer nav a {
+  min-height: 48px;
+  min-width: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 .footer-credit { margin: 0; }
+.footer-credit a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  min-width: 48px;
+}
 
 .measure {
   width: min(var(--measure), calc(100% - 32px));
@@ -551,7 +563,7 @@ html.js .reveal.is-in {
 .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
 .filters a {
   color: var(--paper);
-  border: 1px solid var(--line);
+  border: 1px solid rgba(244, 240, 232, 0.55);
   text-decoration: none;
 }
 .filters a[aria-current="page"] {
@@ -623,8 +635,18 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
   max-height: 140px;
   border-bottom: 0;
 }
+.cart-line > div { padding: 0 16px 16px; text-align: center; }
 .cart-line h2 { font-size: 1.6rem; }
-.line-amount { padding-right: 16px; }
+.cart-line h2 a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  min-width: 48px;
+}
+.cart-line .btn { margin-inline: auto; }
+.cart-line .photo-slot { width: 100%; }
+.line-amount { padding-right: 16px; text-align: center; }
 .summary {
   border: 1px solid transparent;
   background:
@@ -641,7 +663,21 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
   width: 100%;
   min-height: 56px;
 }
-.summary ul { margin: 0 0 12px; padding-left: 1.1em; }
+.summary { text-align: center; }
+.summary .btn { margin-inline: auto; }
+.summary ul { margin: 0 0 12px; padding-left: 0; list-style-position: inside; }
+.field-error {
+  color: #F7BA96;
+  font-size: 1rem;
+  display: block;
+  margin-top: 4px;
+}
+input[aria-invalid="true"],
+select[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+  outline: 2px solid #F7BA96;
+  outline-offset: 2px;
+}
 .checkout-grid { display: grid; gap: 16px; }
 .split { display: grid; gap: 12px; }
 .pay-note {
@@ -650,6 +686,13 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 }
 .form-status { min-height: 1.6em; }
 .crumb { font-size: 1rem; }
+.crumb a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  min-width: 48px;
+}
 .price-line { color: #DF9A73; }
 
 .age-gate {
@@ -683,7 +726,9 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
   max-height: none;
   margin: 0 auto 16px;
   object-fit: contain;
+  object-position: center;
 }
+.age-actions { justify-content: center; }
 .age-card h2 { font-size: max(2rem, 3vw); }
 .age-actions {
   display: flex;
@@ -717,9 +762,11 @@ body[data-page="about"] { background: #F4F0E8; }
     grid-template-columns: repeat(12, 1fr);
     padding-top: 24px;
   }
-  .hero-home .hero-copy { grid-column: 1 / 8; }
+  .hero-home .hero-copy { grid-column: 1 / 8; grid-row: 1; align-self: center; }
   .hero-mark {
     grid-column: 7 / 13;
+    grid-row: 1;
+    align-self: center;
     justify-self: end;
   }
   .mark-frame img {
@@ -742,6 +789,22 @@ body[data-page="about"] { background: #F4F0E8; }
   .hero-mark { order: -1; justify-self: center; text-align: center; }
   .hero-actions { display: grid; }
   .hero-actions .btn { width: 100%; }
+  body[data-page="checkout"] { padding-bottom: calc(88px + env(safe-area-inset-bottom)); }
+  .checkout-grid .summary .btn[type="submit"] {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    min-height: 56px;
+    z-index: 50;
+    margin: 0;
+    padding: 8px 32px calc(8px + env(safe-area-inset-bottom));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.38),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+      0 -8px 24px rgba(0, 0, 0, 0.45);
+  }
 }
 @media (min-width: 1440px) {
   .catalog:not(.catalog-related) { grid-template-columns: repeat(4, 1fr); }

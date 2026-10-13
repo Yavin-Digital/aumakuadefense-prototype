@@ -65,8 +65,14 @@
     "</div>";
 
   var main = document.getElementById("main");
-  document.body.insertBefore(banner, document.body.firstChild);
+  var skip = document.createElement("a");
+  skip.id = "skip";
+  skip.className = "skip";
+  skip.href = "#main";
+  skip.textContent = "Skip to content";
+  document.body.insertBefore(skip, document.body.firstChild);
   if (main) {
+    main.insertAdjacentElement("beforebegin", banner);
     main.insertAdjacentElement("beforebegin", header);
     if (page !== "deck") {
       var band = document.createElement("div");
@@ -76,7 +82,8 @@
     }
     main.insertAdjacentElement("afterend", footer);
   } else {
-    document.body.insertBefore(header, document.body.firstChild);
+    document.body.appendChild(banner);
+    document.body.appendChild(header);
     document.body.appendChild(footer);
   }
 
@@ -91,6 +98,13 @@
   toggle.addEventListener("click", function () {
     var open = header.classList.toggle("nav-open");
     toggle.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  document.addEventListener("keydown", function (event) {
+    if (event.key !== "Escape" || !header.classList.contains("nav-open")) return;
+    if (gate && !gate.hidden) return;
+    header.classList.remove("nav-open");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.focus();
   });
 
   var params = new URLSearchParams(location.search);
@@ -180,6 +194,7 @@
     gate.hidden = false;
     document.body.classList.add("age-lock");
     banner.inert = true;
+    skip.inert = true;
     if (main) main.inert = true;
     header.inert = true;
     footer.inert = true;
@@ -192,12 +207,12 @@
     gate.hidden = true;
     document.body.classList.remove("age-lock");
     banner.inert = false;
+    skip.inert = false;
     if (main) main.inert = false;
     header.inert = false;
     footer.inert = false;
     document.removeEventListener("keydown", onKey, true);
     document.removeEventListener("focusin", onFocusIn);
-    var skip = document.getElementById("skip");
     if (skip) skip.focus();
   }
 
