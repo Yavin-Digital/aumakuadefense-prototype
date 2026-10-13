@@ -82,32 +82,38 @@
       return '<option value="' + esc(item.id) + '">' + esc(item.name) + "</option>";
     }).join("");
     root.innerHTML =
-      '<p class="crumb"><a href="shop.html">Shop</a> / <a href="category.html?c=accessories">Accessories</a></p>' +
-      '<div class="product-layout">' +
-        '<div class="gallery">' +
-          photoSlot("PRODUCT PHOTO — client to supply") +
-          '<div class="gallery-row">' +
+      '<div class="page">' +
+        '<p class="crumb"><a href="shop.html">Shop</a> / <a href="category.html?c=accessories">Accessories</a></p>' +
+        '<div class="product-layout">' +
+          '<div class="gallery">' +
             photoSlot("PRODUCT PHOTO — client to supply") +
-            photoSlot("PRODUCT PHOTO — client to supply") +
+            '<div class="gallery-row">' +
+              photoSlot("PRODUCT PHOTO — client to supply") +
+              photoSlot("PRODUCT PHOTO — client to supply") +
+            "</div>" +
+          "</div>" +
+          '<div class="product-buy">' +
+            '<p class="kicker">Accessories</p>' +
+            '<h1>' + esc(window.AD.displayName(product)) + "</h1>" +
+            '<p class="price-line">' + esc(product.priceLabel) + "</p>" +
+            '<p class="chip-row"><span class="supply-chip">Description — client to supply</span></p>' +
+            '<form class="buy-form" id="buy-form">' +
+              '<label for="variant">Variant <select id="variant">' + options + "</select></label>" +
+              '<label for="qty">Quantity <input id="qty" type="number" min="1" max="99" value="1" inputmode="numeric"></label>' +
+              '<button class="btn" type="submit">Add to cart</button>' +
+              '<p id="added" class="form-status" role="status"></p>' +
+            "</form>" +
           "</div>" +
         "</div>" +
-        '<div class="product-buy">' +
-          '<p class="kicker">Accessories</p>' +
-          '<h1>' + esc(window.AD.displayName(product)) + "</h1>" +
-          '<p class="price-line">' + esc(product.priceLabel) + "</p>" +
-          '<p class="chip-row"><span class="supply-chip">Description — client to supply</span></p>' +
-          '<form class="buy-form" id="buy-form">' +
-            '<label for="variant">Variant <select id="variant">' + options + "</select></label>" +
-            '<label for="qty">Quantity <input id="qty" type="number" min="1" max="99" value="1" inputmode="numeric"></label>' +
-            '<button class="btn" type="submit">Add to cart</button>' +
-            '<p id="added" class="form-status" role="status"></p>' +
-          "</form>" +
-          '<h2>Specs</h2>' +
+      "</div>" +
+      '<section class="room room-paper reveal">' +
+        '<div class="measure">' +
+          '<h2><span class="metal">Specs</span></h2>' +
           '<p class="chip-row"><span class="supply-chip">Specs — client to supply</span></p>' +
           '<p class="review-note">Draft: no public name, price, spec, or photo was on the live store. The title is the slug in title case. Slug ' + esc(product.slug) + ".</p>" +
         "</div>" +
-      "</div>" +
-      '<section class="band"><h2>Related</h2><div class="catalog">' + related + "</div></section>";
+      "</section>" +
+      '<section class="room room-ink reveal"><div class="room-inner"><h2><span class="metal">Related</span></h2><div class="catalog catalog-related">' + related + "</div></div></section>";
 
     var data = {
       "@context": "https://schema.org",
@@ -160,7 +166,7 @@
     root.innerHTML =
       "<h1>Cart</h1>" +
       '<div class="cart-lines">' + lines.map(lineView).join("") + "</div>" +
-      '<aside class="summary">' +
+      '<aside class="summary order-summary">' +
         "<h2>Order summary</h2>" +
         "<p>Subtotal " + moneyDash() + "</p>" +
         "<p>Tax calculated at checkout</p>" +
@@ -223,7 +229,7 @@
             '<label>Security code <input name="cvc" required inputmode="numeric" autocomplete="cc-csc"></label>' +
           "</div>" +
         "</fieldset>" +
-        '<aside class="summary">' +
+        '<aside class="summary order-summary">' +
           "<h2>Order summary</h2><ul>" + rows + "</ul>" +
           "<p>Subtotal " + moneyDash() + "</p>" +
           "<p>Tax calculated at checkout</p>" +

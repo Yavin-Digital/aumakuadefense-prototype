@@ -10,6 +10,14 @@
   --copper-highlight: #DF9A73;  /* measured p75; text on --brand clears WCAG AA */
   --copper-bright: #F7BA96;     /* measured p90; highlight reference */
 
+  /* Measured copper only. Metal and edge are the jewelry gradients.
+     Button and type gradients drop the oxide stop so text stays AA. */
+  --copper-metal: linear-gradient(135deg, #673A27 0%, #C07A5A 22%, #F7BA96 42%, #C07A5A 58%, #8A4E33 78%, #DF9A73 100%);
+  --copper-edge: linear-gradient(90deg, transparent, #F7BA96 30%, #C07A5A 60%, transparent);
+  --copper-type: linear-gradient(110deg, #DF9A73 0%, #F7BA96 46%, #DF9A73 100%);
+  --copper-on-paper: linear-gradient(110deg, #673A27 0%, #8A4E33 48%, #673A27 100%);
+  --copper-btn: linear-gradient(115deg, #C07A5A 0%, #F7BA96 42%, #C07A5A 58%, #F7BA96 100%);
+
   --brand: #2C3324;             /* PROPOSED military green. Darker than mockup wall. */
   --ink: #1A1916;               /* PROPOSED gunmetal */
   --paper: #F4F0E8;             /* PROPOSED warm paper */
@@ -21,6 +29,8 @@
   --font-body: "Barlow", "Segoe UI", sans-serif;
 
   --measure: 1040px;
+  --header-h: 64px;
+  --frame: min(1640px, 88vw);
   --shadow: 0 0 100px rgba(0, 0, 0, 0.2);
   --line: rgba(255, 255, 255, 0.16);
   --line-ink: rgba(26, 25, 22, 0.16);

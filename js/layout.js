@@ -34,16 +34,21 @@
   var header = document.createElement("header");
   header.className = "site-header";
   header.innerHTML =
-    '<a class="logo" href="index.html"><img src="assets/logo/aumakua-mark-copper.png" alt="Aumakua Defense"></a>' +
-    '<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">' + icon("menu") + '<span>Menu</span></button>' +
-    '<nav id="site-nav" class="site-nav">' + nav + "</nav>" +
-    '<a class="cart-link" href="cart.html">' + icon("cart") + '<span>Cart</span> <span id="cart-count">0</span></a>';
+    '<div class="site-bar">' +
+      '<a class="logo" href="index.html">' +
+        '<img class="logo-mark" src="assets/logo/aumakua-mark-copper.png" alt="Aumakua Defense">' +
+        '<img class="logo-word" src="assets/logo/aumakua-wordmark-copper.png" alt="">' +
+      "</a>" +
+      '<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">' + icon("menu") + '<span>Menu</span></button>' +
+      '<nav id="site-nav" class="site-nav">' + nav + "</nav>" +
+      '<a class="cart-link" href="cart.html">' + icon("cart") + '<span>Cart</span> <span id="cart-count">0</span></a>' +
+    "</div>";
 
   var footer = document.createElement("footer");
   footer.className = "site-footer";
   footer.innerHTML =
     '<div class="measure footer-grid">' +
-      '<div><img class="footer-word" src="assets/logo/aumakua-wordmark-copper.png" alt="Aumakua Defense">' +
+      '<div><img class="footer-word" src="assets/logo/aumakua-wordmark-copper.png" width="560" height="100" alt="Aumakua Defense">' +
       '<p>Copyright © 2026 Aumakua Defense.</p></div>' +
       '<nav aria-label="Footer">' +
         '<a href="shop.html">Shop</a>' +
@@ -61,9 +66,19 @@
 
   var main = document.getElementById("main");
   document.body.insertBefore(banner, document.body.firstChild);
-  document.body.insertBefore(header, main || document.body.firstChild);
-  if (main) main.insertAdjacentElement("afterend", footer);
-  else document.body.appendChild(footer);
+  if (main) {
+    main.insertAdjacentElement("beforebegin", header);
+    if (page !== "deck") {
+      var band = document.createElement("div");
+      band.className = "weave-band";
+      band.setAttribute("aria-hidden", "true");
+      main.insertAdjacentElement("beforebegin", band);
+    }
+    main.insertAdjacentElement("afterend", footer);
+  } else {
+    document.body.insertBefore(header, document.body.firstChild);
+    document.body.appendChild(footer);
+  }
 
   function paintCount() {
     var el = document.getElementById("cart-count");
@@ -93,7 +108,7 @@
   function questionView() {
     gate.innerHTML =
       '<div class="age-card">' +
-        '<img src="assets/logo/aumakua-lockup-copper.png" alt="Aumakua Defense">' +
+        '<img src="assets/logo/aumakua-mark-copper.png" alt="Aumakua Defense">' +
         '<h2 id="age-title">You must be 21 or older to enter this site</h2>' +
         '<div class="age-actions">' +
           '<button type="button" class="btn" id="age-yes">I am 21 or older</button>' +
@@ -112,7 +127,7 @@
   function exitView() {
     gate.innerHTML =
       '<div class="age-card">' +
-        '<img src="assets/logo/aumakua-lockup-copper.png" alt="Aumakua Defense">' +
+        '<img src="assets/logo/aumakua-mark-copper.png" alt="Aumakua Defense">' +
         '<h2 id="age-title">Please come back when you are 21 or older</h2>' +
         '<p>This site is limited to visitors who are 21 or older. You can close this tab to leave.</p>' +
         '<div class="age-actions">' +
@@ -187,4 +202,27 @@
   }
 
   if (localStorage.getItem("ad_age_ok") !== "1") openGate();
+
+  function initReveal() {
+    var nodes = document.querySelectorAll(".reveal");
+    if (!("IntersectionObserver" in window)) {
+      Array.prototype.forEach.call(nodes, function (el) { el.classList.add("is-in"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    Array.prototype.forEach.call(nodes, function (el) { io.observe(el); });
+  }
+  document.addEventListener("DOMContentLoaded", initReveal);
+  setTimeout(function () {
+    Array.prototype.forEach.call(document.querySelectorAll(".reveal"), function (el) {
+      el.classList.add("is-in");
+    });
+  }, 2000);
 })();

@@ -47,14 +47,19 @@
   margin: 0 0 12px;
   color: var(--paper);
 }
-.kicker {
+.brand-page .kicker {
   font-family: var(--font-display);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--copper-highlight);
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+  color: var(--copper-shadow);
   font-size: 1rem;
   margin: 0 0 8px;
 }
+.brand-page .cover .kicker { color: var(--copper-highlight); }
 .cover p { margin: 0 0 10px; color: var(--paper); }
 .cover a { color: var(--copper-highlight); }
 .cover .tagline {
