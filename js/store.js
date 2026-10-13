@@ -95,7 +95,7 @@
           '<p class="kicker">Accessories</p>' +
           '<h1>' + esc(window.AD.displayName(product)) + "</h1>" +
           '<p class="price-line">' + esc(product.priceLabel) + "</p>" +
-          '<p>Slug <code>' + esc(product.slug) + "</code>. Description: " + esc(product.description) + "</p>" +
+          '<p class="chip-row"><span class="supply-chip">Description — client to supply</span></p>' +
           '<form class="buy-form" id="buy-form">' +
             '<label for="variant">Variant <select id="variant">' + options + "</select></label>" +
             '<label for="qty">Quantity <input id="qty" type="number" min="1" max="99" value="1" inputmode="numeric"></label>' +
@@ -103,8 +103,8 @@
             '<p id="added" class="form-status" role="status"></p>' +
           "</form>" +
           '<h2>Specs</h2>' +
-          '<p>' + esc(product.specs) + "</p>" +
-          '<p class="draft">Draft: no public name, price, spec, or photo was on the live store. The title is the slug in title case.</p>' +
+          '<p class="chip-row"><span class="supply-chip">Specs — client to supply</span></p>' +
+          '<p class="review-note">Draft: no public name, price, spec, or photo was on the live store. The title is the slug in title case. Slug ' + esc(product.slug) + ".</p>" +
         "</div>" +
       "</div>" +
       '<section class="band"><h2>Related</h2><div class="catalog">' + related + "</div></section>";

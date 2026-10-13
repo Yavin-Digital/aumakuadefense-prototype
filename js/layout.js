@@ -27,14 +27,14 @@
   var banner = document.createElement("div");
   banner.className = "proto-banner";
   banner.setAttribute("role", "note");
-  banner.innerHTML = '<p class="proto-banner-text">Prototype for review. Not the live store.</p>' +
-    '<p class="proto-banner-links"><a href="performance.html">View Performance Report</a>' +
-    '<a href="compare/AumakuaDefense-SEO-AEO-Compare.html">SEO / AEO Compare</a></p>';
+  banner.innerHTML = '<p class="proto-banner-text">Prototype</p>' +
+    '<a href="performance.html">Performance</a>' +
+    '<a href="compare/AumakuaDefense-SEO-AEO-Compare.html">SEO / AEO</a>';
 
   var header = document.createElement("header");
   header.className = "site-header";
   header.innerHTML =
-    '<a class="logo" href="index.html"><img src="assets/logo/aumakua-mark-white.png" alt="Aumakua Defense"></a>' +
+    '<a class="logo" href="index.html"><img src="assets/logo/aumakua-mark-copper.png" alt="Aumakua Defense"></a>' +
     '<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">' + icon("menu") + '<span>Menu</span></button>' +
     '<nav id="site-nav" class="site-nav">' + nav + "</nav>" +
     '<a class="cart-link" href="cart.html">' + icon("cart") + '<span>Cart</span> <span id="cart-count">0</span></a>';
@@ -43,7 +43,7 @@
   footer.className = "site-footer";
   footer.innerHTML =
     '<div class="measure footer-grid">' +
-      '<div><img class="footer-word" src="assets/logo/aumakua-wordmark-white.png" alt="Aumakua Defense">' +
+      '<div><img class="footer-word" src="assets/logo/aumakua-wordmark-copper.png" alt="Aumakua Defense">' +
       '<p>Copyright © 2026 Aumakua Defense.</p></div>' +
       '<nav aria-label="Footer">' +
         '<a href="shop.html">Shop</a>' +
@@ -79,6 +79,7 @@
   });
 
   var params = new URLSearchParams(location.search);
+  if (params.get("review") === "1") document.body.classList.add("review-mode");
   if (params.get("resetage") === "1") localStorage.removeItem("ad_age_ok");
 
   var gate = document.createElement("div");
@@ -154,23 +155,33 @@
     }
   }
 
+  function onFocusIn(event) {
+    if (gate.hidden || gate.contains(event.target)) return;
+    var items = focusable();
+    if (items.length) items[0].focus();
+  }
+
   function openGate() {
     gate.hidden = false;
     document.body.classList.add("age-lock");
+    banner.inert = true;
     if (main) main.inert = true;
     header.inert = true;
     footer.inert = true;
     questionView();
     document.addEventListener("keydown", onKey, true);
+    document.addEventListener("focusin", onFocusIn);
   }
 
   function closeGate() {
     gate.hidden = true;
     document.body.classList.remove("age-lock");
+    banner.inert = false;
     if (main) main.inert = false;
     header.inert = false;
     footer.inert = false;
     document.removeEventListener("keydown", onKey, true);
+    document.removeEventListener("focusin", onFocusIn);
     var skip = document.getElementById("skip");
     if (skip) skip.focus();
   }

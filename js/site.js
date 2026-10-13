@@ -71,7 +71,7 @@
       title: "Tactical EDC Light",
       nameStatus: "Name TBC",
       categoryId: "accessories",
-      tags: ["lights", "edc"],
+      tags: ["lights"],
       price: null,
       priceLabel: "Price: client to supply",
       description: "[CLIENT TO SUPPLY]",

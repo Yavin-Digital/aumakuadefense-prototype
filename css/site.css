@@ -47,27 +47,30 @@ code { font-size: 0.9em; }
 .proto-banner {
   position: sticky;
   top: 0;
-  z-index: 70;
+  z-index: 40;
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px 18px;
+  flex-wrap: nowrap;
+  gap: 8px 14px;
   align-items: center;
-  justify-content: space-between;
   background: var(--ink);
   color: var(--paper);
-  padding: 4px 16px;
+  min-height: 48px;
+  padding: 0 12px;
   border-bottom: 1px solid var(--line);
+  white-space: nowrap;
 }
 .proto-banner-text { margin: 0; font-size: 1rem; }
-.proto-banner-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
 .proto-banner a {
   min-height: 48px;
   display: inline-flex;
   align-items: center;
+  padding: 0 2px;
   color: var(--copper-highlight);
+  font-size: 1rem;
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 3px;
+  white-space: nowrap;
 }
 
 .site-header {
@@ -151,10 +154,46 @@ main { display: block; }
   background: var(--brand);
   overflow: hidden;
 }
+.hero-home {
+  align-items: center;
+  min-height: 86vh;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.62)),
+    linear-gradient(165deg, #3a422c 0%, var(--brand) 46%, #000 100%);
+}
+.hero-home::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.45;
+  background-image: repeating-linear-gradient(
+    112deg,
+    transparent 0 2px,
+    rgba(224, 167, 132, 0.22) 2px 3px,
+    transparent 3px 7px
+  );
+  mix-blend-mode: overlay;
+}
+.hero-home::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='48' viewBox='0 0 180 48'><g fill='none' stroke='%23C07A5A' stroke-width='1.2'><path d='M0 36 L18 8 L36 36 L54 8 L72 36 L90 8 L108 36 L126 8 L144 36 L162 8 L180 36'/><path d='M0 44 L12 28 L24 44 L36 28 L48 44 L60 28 L72 44 L84 28 L96 44 L108 28 L120 44 L132 28 L144 44 L156 28 L168 44 L180 28'/></g></svg>");
+  background-size: 180px 48px;
+}
 .hero-shade {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
+}
+.hero-lockup {
+  display: block;
+  width: min(100%, 460px);
+  height: auto;
+  margin: 0 0 18px;
 }
 .hero-grain, .room::before {
   content: "";
@@ -166,6 +205,7 @@ main { display: block; }
 }
 .hero-copy {
   position: relative;
+  z-index: 1;
   width: min(var(--measure), calc(100% - 32px));
   margin: 0 auto;
   padding: 48px 0 56px;
@@ -186,7 +226,19 @@ main { display: block; }
   background: rgba(0, 0, 0, 0.35);
   max-width: 36rem;
 }
-.draft { color: var(--paper); }
+.review-note { display: none; }
+body.review-mode .review-note { display: block; margin: 0 0 12px; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 16px; }
+.supply-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 8px 14px;
+  border: 1px solid rgba(192, 122, 90, 0.75);
+  background: rgba(0, 0, 0, 0.28);
+  color: var(--paper);
+  font-size: 1rem;
+}
 
 .btn {
   background: var(--accent);
@@ -231,16 +283,33 @@ main { display: block; }
   gap: 18px;
 }
 .product-tile {
+  position: relative;
   display: flex;
   flex-direction: column;
   color: inherit;
   text-decoration: none;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(192, 122, 90, 0.72);
   box-shadow: var(--shadow);
-  background: rgba(0, 0, 0, 0.18);
+  background:
+    linear-gradient(180deg, rgba(223, 154, 115, 0.16), rgba(0, 0, 0, 0.08) 30%, rgba(0, 0, 0, 0.34)),
+    #243024;
   min-height: 48px;
+  overflow: hidden;
 }
-.product-tile:hover { color: inherit; border-color: var(--copper-highlight); }
+.product-tile::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--copper-bright), var(--accent), transparent);
+}
+.product-tile:hover {
+  color: inherit;
+  border-color: var(--copper-bright);
+  box-shadow: 0 0 0 1px rgba(247, 186, 150, 0.45), var(--shadow);
+}
 .tile-body { display: grid; gap: 6px; padding: 16px; }
 .tile-title { font-family: var(--font-display); font-size: 1.8rem; line-height: 1; }
 .tile-price { color: var(--copper-highlight); }
@@ -357,25 +426,36 @@ textarea { min-height: 140px; }
 .form-status { min-height: 1.6em; }
 .crumb { font-size: 1rem; }
 
+.shop-tribal {
+  height: 28px;
+  background-color: #1a1f16;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='28' viewBox='0 0 180 28'><path d='M0 22 L15 6 L30 22 L45 6 L60 22 L75 6 L90 22 L105 6 L120 22 L135 6 L150 22 L165 6 L180 22' fill='none' stroke='%23C07A5A' stroke-width='1.4'/></svg>");
+  background-repeat: repeat-x;
+  background-position: center;
+  border-bottom: 1px solid rgba(192, 122, 90, 0.4);
+}
 .age-gate {
   position: fixed;
   inset: 0;
-  z-index: 60;
-  background: rgba(0, 0, 0, 0.72);
-  display: grid;
-  place-items: center;
-  padding: 16px;
+  z-index: 200;
+  background: rgba(6, 7, 5, 0.96);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  overflow: auto;
 }
 .age-gate[hidden] { display: none; }
 .age-card {
-  width: min(560px, 100%);
+  width: min(520px, 100%);
+  margin: auto;
   background: var(--brand);
   color: var(--paper);
-  border: 1px solid var(--line);
+  border: 1px solid rgba(192, 122, 90, 0.55);
   box-shadow: var(--shadow);
   padding: 24px 20px 20px;
 }
-.age-card img { width: min(100%, 320px); }
+.age-card img { width: min(100%, 280px); max-height: 112px; object-fit: contain; object-position: left center; }
 .age-card h2 { font-size: clamp(1.8rem, 5vw, 2.4rem); }
 .age-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0; }
 .age-note { font-size: 1rem; margin: 8px 0 0; color: var(--copper-highlight); }
@@ -419,8 +499,8 @@ textarea { min-height: 140px; }
   .cart-line { grid-template-columns: 1fr; }
   .line-amount { padding: 0 16px 16px; }
 }
-@media (max-width: 380px) {
-  .proto-banner { padding-inline: 10px; }
+@media (max-width: 390px) {
+  .proto-banner { gap: 8px; padding-inline: 10px; }
   .site-header { padding-inline: 10px; }
   .logo img { height: 36px; }
 }
