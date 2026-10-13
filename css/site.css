@@ -275,7 +275,7 @@ main { display: block; }
   display: block;
   width: min(70vw, 280px);
   height: auto;
-  filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.35)) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.55));
+  filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.35));
   animation: mark-in 1000ms cubic-bezier(.2, .7, .1, 1) both;
 }
 .mark-sheen {
@@ -752,8 +752,9 @@ body[data-page="about"] { background: #F4F0E8; }
     justify-self: end;
   }
   .mark-frame img {
+    height: auto;
     width: auto;
-    height: min(72vh, 900px);
+    max-height: min(72vh, 900px);
     max-width: 100%;
   }
   .checkout-grid {
