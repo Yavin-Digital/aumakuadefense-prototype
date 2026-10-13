@@ -44,6 +44,7 @@ code { font-size: 0.9em; }
   z-index: 80;
 }
 .skip:focus { top: 0; transform: none; }
+.skip:focus:not(:focus-visible) { transform: translateY(-120%); }
 
 .proto-banner {
   position: sticky;
@@ -471,6 +472,7 @@ body.review-mode .review-note { display: block; margin: 0 0 12px; }
   padding-top: max(48px, 4vw);
   border-top: 1px solid rgba(223, 154, 115, 0.18);
 }
+.room-ink:has(+ .room-ink) { padding-bottom: max(48px, 4vw); }
 .room-ink + .spotlight { padding-top: max(32px, 3vw); }
 .room-paper {
   background: #F4F0E8;
@@ -903,11 +905,12 @@ body[data-page="about"] { background: #1A1916; }
 .story { overflow: hidden; }
 .story > .story-bg,
 .story > .story-shade { position: absolute; inset: 0; }
-.hero-copy .example-label {
+.hero-home > .example-label {
   position: absolute;
-  left: auto;
   right: 24px;
   bottom: 24px;
+  left: auto;
+  z-index: 3;
   margin: 0;
 }
 .gear-cta .example-label { position: static; display: inline-block; margin-top: 16px; }
