@@ -154,16 +154,15 @@
     });
     window.gsap.utils.toArray(".reveal").forEach(function (el) {
       if (el.classList.contains("weave-draw")) return;
-      window.gsap.fromTo(el, { opacity: 0, y: 24 }, {
-        opacity: 1,
-        y: 0,
+      var kids = window.gsap.utils.toArray(el.children);
+      if (!kids.length) return;
+      window.gsap.from(kids, {
+        opacity: 0,
+        y: 24,
         duration: 0.75,
         ease: "power2.out",
-        scrollTrigger: { trigger: el, start: "top 88%", once: true },
-        onStart: function () {
-          if (el.classList.contains("weave-draw")) el.classList.add("draw");
-        },
-        onComplete: function () { el.classList.add("is-in"); }
+        immediateRender: false,
+        scrollTrigger: { trigger: el, start: "top 88%", once: true }
       });
     });
     window.gsap.utils.toArray("[data-count]").forEach(function (el) {

@@ -237,6 +237,12 @@
   }
   document.addEventListener("DOMContentLoaded", initReveal);
   setTimeout(function () {
+    if (window.ScrollTrigger) {
+      window.ScrollTrigger.getAll().forEach(function (trigger) {
+        if (trigger.animation) trigger.animation.progress(1);
+        trigger.kill();
+      });
+    }
     Array.prototype.forEach.call(document.querySelectorAll(".reveal"), function (el) {
       el.classList.add("is-in");
       el.style.removeProperty("opacity");

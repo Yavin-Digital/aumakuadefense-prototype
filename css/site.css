@@ -467,6 +467,11 @@ body.review-mode .review-note { display: block; margin: 0 0 12px; }
   background: #1A1916;
   color: var(--paper);
 }
+.room-ink + .room-ink {
+  padding-top: max(48px, 4vw);
+  border-top: 1px solid rgba(223, 154, 115, 0.18);
+}
+.room-ink + .spotlight { padding-top: max(32px, 3vw); }
 .room-paper {
   background: #F4F0E8;
   color: var(--ink);
@@ -898,8 +903,18 @@ body[data-page="about"] { background: #1A1916; }
 .story { overflow: hidden; }
 .story > .story-bg,
 .story > .story-shade { position: absolute; inset: 0; }
-.hero-copy .example-label,
+.hero-copy .example-label {
+  position: absolute;
+  left: auto;
+  right: 24px;
+  bottom: 24px;
+  margin: 0;
+}
 .gear-cta .example-label { position: static; display: inline-block; margin-top: 16px; }
+html.gsap-motion .reveal {
+  opacity: 1;
+  transform: none;
+}
 .hero-about .hero-overlay {
   background: linear-gradient(180deg, rgba(44, 51, 36, 0.5), rgba(26, 25, 22, 0.9));
 }
