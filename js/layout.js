@@ -37,7 +37,7 @@
     '<div class="site-bar">' +
       '<a class="logo" href="index.html">' +
         '<img class="logo-mark" src="assets/logo/aumakua-mark-copper.png" alt="Aumakua Defense">' +
-        '<img class="logo-word" src="assets/logo/aumakua-wordmark-copper.png" alt="">' +
+        '<img class="logo-word" src="assets/logo/aumakua-wordmark-copper-2x.png" alt="">' +
       "</a>" +
       '<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">' + icon("menu") + '<span>Menu</span></button>' +
       '<nav id="site-nav" class="site-nav">' + nav + "</nav>" +
@@ -48,7 +48,7 @@
   footer.className = "site-footer";
   footer.innerHTML =
     '<div class="measure footer-grid">' +
-      '<div><img class="footer-word" src="assets/logo/aumakua-wordmark-copper.png" width="560" height="100" alt="Aumakua Defense">' +
+      '<div><img class="footer-word" src="assets/logo/aumakua-wordmark-copper-2x.png" width="560" height="100" alt="Aumakua Defense">' +
       '<p>Copyright © 2026 Aumakua Defense.</p></div>' +
       '<nav aria-label="Footer">' +
         '<a href="shop.html">Shop</a>' +
