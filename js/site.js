@@ -95,6 +95,36 @@
     lights: "Lights"
   };
 
+  function esc(value) {
+    return String(value == null ? "" : value).replace(/[&<>"']/g, function (ch) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
+    });
+  }
+
+  function shot(name, alt, width, height, widths) {
+    var srcset = widths.map(function (w) {
+      return "assets/photos/" + name + "-" + w + ".webp " + w + "w";
+    }).join(", ");
+    var mid = widths[Math.min(1, widths.length - 1)];
+    return {
+      src: "assets/photos/" + name + "-" + mid + ".webp",
+      srcset: srcset,
+      width: width,
+      height: height,
+      alt: alt
+    };
+  }
+
+  var photos = {
+    "edc-gear-pouch": shot("pouch", "Example: a leather tool pouch against a dark wall", 960, 1200, [640, 960]),
+    "iwb-kydex-holster": shot("holster", "Example: a tactical belt and holster on camouflage", 960, 1200, [640, 960, 1280]),
+    "pistol-grip-upgrade": shot("grip", "Example: a close-up of a pistol grip on wood", 960, 1200, [640, 960]),
+    "tactical-edc-light": shot("light", "Example: a black handheld spotlight on a wooden desk", 960, 1200, [640, 960])
+  };
+  products.forEach(function (product) {
+    product.image = photos[product.id];
+  });
+
   window.AD = {
     nap: {
       name: "Aumakua Defense",
@@ -125,6 +155,27 @@
     },
     related: function (product) {
       return products.filter(function (p) { return p.id !== product.id; });
+    },
+    photoHtml: function (image, opts) {
+      opts = opts || {};
+      if (!image) return "";
+      var sizes = opts.sizes || "(min-width: 1440px) 22vw, (min-width: 700px) 45vw, 92vw";
+      var load = opts.eager ? ' fetchpriority="high"' : ' loading="lazy"';
+      return '<div class="photo-slot photo-real">' +
+        '<img src="' + esc(image.src) + '" srcset="' + esc(image.srcset) + '" sizes="' + esc(sizes) + '" alt="' + esc(image.alt) + '" width="' + image.width + '" height="' + image.height + '"' + load + ' decoding="async">' +
+        '<span class="example-label">Example image</span></div>';
+    },
+    tileHtml: function (product) {
+      var tags = product.tags.map(function (id) {
+        return '<span class="mini-tag">' + esc(tagNames[id] || id) + "</span>";
+      }).join("");
+      return '<a class="product-tile" href="product.html?id=' + esc(product.id) + '">' +
+        window.AD.photoHtml(product.image) +
+        '<span class="tile-body">' +
+          '<span class="tile-title">' + esc(product.title + " — name TBC") + "</span>" +
+          '<span class="tile-meta">' + tags + "</span>" +
+          '<span class="tile-price">' + esc(product.priceLabel) + "</span>" +
+        "</span></a>";
     }
   };
 })();

@@ -7,21 +7,13 @@
     });
   }
 
-  function photoSlot(label) {
+  function photoSlot(label, image, opts) {
+    if (image) return window.AD.photoHtml(image, opts);
     return '<div class="photo-slot" role="img" aria-label="' + esc(label) + '"><span>' + esc(label) + "</span></div>";
   }
 
   function tile(product) {
-    var tags = product.tags.map(function (id) {
-      return '<span class="mini-tag">' + esc(window.AD.tagName(id)) + "</span>";
-    }).join("");
-    return '<a class="product-tile" href="product.html?id=' + esc(product.id) + '">' +
-      photoSlot("PRODUCT PHOTO — client to supply") +
-      '<span class="tile-body">' +
-        '<span class="tile-title">' + esc(window.AD.displayName(product)) + "</span>" +
-        '<span class="tile-meta">' + tags + "</span>" +
-        '<span class="tile-price">' + esc(product.priceLabel) + "</span>" +
-      "</span></a>";
+    return window.AD.tileHtml(product);
   }
 
   function moneyDash() {
@@ -86,11 +78,7 @@
         '<p class="crumb"><a href="shop.html">Shop</a> / <a href="category.html?c=accessories">Accessories</a></p>' +
         '<div class="product-layout">' +
           '<div class="gallery">' +
-            photoSlot("PRODUCT PHOTO — client to supply") +
-            '<div class="gallery-row">' +
-              photoSlot("PRODUCT PHOTO — client to supply") +
-              photoSlot("PRODUCT PHOTO — client to supply") +
-            "</div>" +
+            photoSlot("PRODUCT PHOTO — client to supply", product.image, { eager: true, sizes: "(min-width: 720px) 48vw, 92vw" }) +
           "</div>" +
           '<div class="product-buy">' +
             '<p class="kicker">Accessories</p>' +
@@ -147,7 +135,7 @@
       });
     }
     return '<article class="cart-line" data-line="' + esc(line.id) + '">' +
-      photoSlot("PRODUCT PHOTO — client to supply") +
+      photoSlot("PRODUCT PHOTO — client to supply", product && product.image, { sizes: "140px" }) +
       '<div><h2><a href="product.html?id=' + esc(line.productId) + '">' + esc(name) + "</a></h2>" +
       "<p>" + esc(variant) + "</p>" +
       '<label>Quantity <input class="line-qty" type="number" min="1" max="99" value="' + esc(line.qty) + '" inputmode="numeric"></label> ' +

@@ -1,0 +1,19 @@
+# Image credits
+
+The photographs in `assets/photos/` are resized WebP crops of licensed stock. They are example images until the client supplies photography. No AI images were used.
+
+License pages: [Unsplash License](https://unsplash.com/license), [Pexels License](https://www.pexels.com/license/).
+
+| File | Use | Photographer | Source | License |
+| --- | --- | --- | --- | --- |
+| `hero-forest-*.webp` | Home hero, far layer | Ali Kazal | https://unsplash.com/photos/misty-mountain-range-covered-in-dark-evergreen-forest-NiF-rplArCg | Unsplash License |
+| `hero-pines-*.webp` | Home hero, near layer | Jacob Castle | https://unsplash.com/photos/misty-mountain-range-seen-through-pine-trees-VQ_Rzqi6B6c | Unsplash License |
+| `hawaii-ridge-*.webp` | Brand story and About | Nick Thomas | https://unsplash.com/photos/a-grassy-area-with-hills-in-the-background-m4tVvW_ln3E | Unsplash License |
+| `lava-*.webp` | Gear-up band | Cedric Letsch | https://unsplash.com/photos/red-lava-yxrXBQVwx48 | Unsplash License |
+| `range-*.webp` | Built for: Range | waa towaw | https://unsplash.com/photos/rifle-on-a-stand-at-a-shooting-range-CUcLgVjrCP4 | Unsplash License |
+| `field-*.webp` | Built for: Field | Dan Galvani Sommavilla | https://www.pexels.com/photo/backpack-with-ammunition-on-bedrock-in-countryside-6114577/ | Pexels License |
+| `edc-*.webp` | Built for: Everyday Carry | Dan Galvani Sommavilla | https://www.pexels.com/photo/black-semi-automatic-pistol-on-black-case-7225253/ | Pexels License |
+| `holster-*.webp` | IWB Kydex Holster card and spotlight | Dan Galvani Sommavilla | https://www.pexels.com/photo/camouflage-army-belt-with-weapon-11680871/ | Pexels License |
+| `pouch-*.webp` | EDC Gear Pouch card | Oğuz Kaan Boğa | https://www.pexels.com/photo/bag-with-tools-17479382/ | Pexels License |
+| `grip-*.webp` | Pistol Grip Upgrade card | Thomas Tucker | https://unsplash.com/photos/a-close-up-of-a-gun-on-a-wooden-surface-dAoj0nGmAi8 | Unsplash License |
+| `light-*.webp` | Tactical EDC Light card | Abdulla Mohammed | https://www.pexels.com/photo/cordless-black-handheld-spotlight-on-desk-33614620/ | Pexels License |

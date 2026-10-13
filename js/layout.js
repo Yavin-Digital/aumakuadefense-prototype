@@ -219,6 +219,7 @@
   if (localStorage.getItem("ad_age_ok") !== "1") openGate();
 
   function initReveal() {
+    if (document.documentElement.classList.contains("gsap-motion")) return;
     var nodes = document.querySelectorAll(".reveal");
     if (!("IntersectionObserver" in window)) {
       Array.prototype.forEach.call(nodes, function (el) { el.classList.add("is-in"); });
@@ -238,6 +239,13 @@
   setTimeout(function () {
     Array.prototype.forEach.call(document.querySelectorAll(".reveal"), function (el) {
       el.classList.add("is-in");
+      el.style.removeProperty("opacity");
+      el.style.removeProperty("transform");
+      el.style.removeProperty("visibility");
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-count]"), function (el) {
+      var finalValue = el.getAttribute("data-count");
+      if (finalValue) el.textContent = finalValue;
     });
   }, 2000);
 })();
