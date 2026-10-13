@@ -380,6 +380,18 @@ textarea { min-height: 140px; }
 .age-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0; }
 .age-note { font-size: 1rem; margin: 8px 0 0; color: var(--copper-highlight); }
 
+@media (min-width: 900px) {
+  .checkout-grid {
+    grid-template-columns: 1fr 300px;
+    align-items: start;
+  }
+  .checkout-grid .summary {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    position: sticky;
+    top: 88px;
+  }
+}
 @media (min-width: 720px) {
   .catalog { grid-template-columns: 1fr 1fr; }
   .product-layout { grid-template-columns: 1.1fr 0.9fr; align-items: start; }
