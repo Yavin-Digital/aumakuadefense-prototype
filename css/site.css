@@ -86,10 +86,8 @@ code { font-size: 0.9em; }
   position: relative;
   height: var(--header-h);
   background-color: var(--brand);
-  background-image: var(--copper-edge);
-  background-repeat: no-repeat;
-  background-size: 100% 1px;
-  background-position: bottom left;
+  /* No copper edge here: the weave band below is the only line (Marco band gate). */
+  background-image: none;
   border-bottom: 0;
 }
 .site-bar {
@@ -1053,23 +1051,26 @@ html.gsap-motion .reveal {
   background: linear-gradient(180deg, rgba(26, 25, 22, 0.28), rgba(26, 25, 22, 0.9));
 }
 .weave-draw {
+  position: relative;
   height: 28px;
   background: #1A1916;
 }
-.weave-draw svg { display: block; width: 100%; height: 28px; }
-.weave-path {
-  fill: none;
-  stroke: #DF9A73;
-  stroke-opacity: 0.42;
-  stroke-width: 1;
-  stroke-dasharray: 2200;
-  stroke-dashoffset: 2200;
+.weave-draw svg { display: none; }
+.weave-draw::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #DF9A73;
+  opacity: 0.42;
+  -webkit-mask: url("../assets/weave-unit.svg") center / 96px 24px repeat-x;
+  mask: url("../assets/weave-unit.svg") center / 96px 24px repeat-x;
+  clip-path: inset(0 50% 0 50%);
 }
-.weave-draw.is-in .weave-path,
-.weave-draw.draw .weave-path {
-  animation: weave-draw 1.8s ease forwards;
+.weave-draw.is-in::after,
+.weave-draw.draw::after {
+  animation: weave-wipe 1.8s ease forwards;
 }
-@keyframes weave-draw { to { stroke-dashoffset: 0; } }
+@keyframes weave-wipe { to { clip-path: inset(0 0 0 0); } }
 
 @media (hover: hover) and (pointer: fine) {
   .catalog { perspective: 900px; }
@@ -1100,7 +1101,7 @@ html.gsap-motion .reveal {
     opacity: 1 !important;
     transform: none !important;
   }
-  .weave-path { stroke-dashoffset: 0 !important; }
+  .weave-draw::after { clip-path: none !important; animation: none !important; }
   .hero-layer-far,
   .hero-layer-near,
   .product-tile,
