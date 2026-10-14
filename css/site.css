@@ -414,13 +414,13 @@ main { display: block; }
   background: var(--copper-edge);
   -webkit-mask-image: url("../assets/weave-unit.svg");
   mask-image: url("../assets/weave-unit.svg");
-  -webkit-mask-size: 48px 24px;
-  mask-size: 48px 24px;
+  -webkit-mask-size: 96px 24px;
+  mask-size: 96px 24px;
   -webkit-mask-repeat: repeat-x;
   mask-repeat: repeat-x;
   -webkit-mask-position: center;
   mask-position: center;
-  opacity: 0.9;
+  opacity: 0.38;
 }
 
 @keyframes rise {
@@ -1053,14 +1053,15 @@ html.gsap-motion .reveal {
   background: linear-gradient(180deg, rgba(26, 25, 22, 0.28), rgba(26, 25, 22, 0.9));
 }
 .weave-draw {
-  height: 36px;
+  height: 28px;
   background: #1A1916;
 }
-.weave-draw svg { display: block; width: 100%; height: 36px; }
+.weave-draw svg { display: block; width: 100%; height: 28px; }
 .weave-path {
   fill: none;
   stroke: #DF9A73;
-  stroke-width: 1.6;
+  stroke-opacity: 0.42;
+  stroke-width: 1;
   stroke-dasharray: 2200;
   stroke-dashoffset: 2200;
 }
