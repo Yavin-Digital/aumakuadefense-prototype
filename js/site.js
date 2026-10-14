@@ -116,7 +116,7 @@
   }
 
   var photos = {
-    "edc-gear-pouch": shot("pouch", "Example: a dark leather pouch with stitching", 1280, 1600, [640, 1280]),
+    "edc-gear-pouch": shot("pouch", "Example: a close-up of brown leather", 1280, 1600, [640, 1280]),
     "iwb-kydex-holster": shot("holster", "Example: a black leather holster", 1280, 1600, [640, 1280]),
     "pistol-grip-upgrade": shot("grip", "Example: a close-up of a stippled pistol grip", 1280, 1600, [640, 1280]),
     "tactical-edc-light": shot("light", "Example: a black flashlight", 1280, 1600, [640, 1280])

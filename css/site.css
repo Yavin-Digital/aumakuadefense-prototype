@@ -938,7 +938,14 @@ body[data-page="about"] { background: #1A1916; }
   z-index: 3;
   margin: 0;
 }
-.gear-cta .example-label { position: static; display: inline-block; margin-top: 16px; }
+.gear-cta .example-label {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  left: auto;
+  z-index: 3;
+  margin: 0;
+}
 html.gsap-motion .reveal {
   opacity: 1;
   transform: none;

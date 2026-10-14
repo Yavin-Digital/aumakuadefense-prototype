@@ -262,4 +262,5 @@
       if (finalValue) el.textContent = finalValue;
     });
   }, 2000);
+  setTimeout(function(){if(window.ScrollTrigger)ScrollTrigger.getAll().forEach(function(t){t.animation&&t.animation.progress(1);t.kill()})},8000)
 })();
