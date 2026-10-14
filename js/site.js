@@ -116,10 +116,10 @@
   }
 
   var photos = {
-    "edc-gear-pouch": shot("pouch", "Example: a leather tool pouch against a dark wall", 960, 1200, [640, 960]),
-    "iwb-kydex-holster": shot("holster", "Example: a tactical belt and holster on camouflage", 960, 1200, [640, 960, 1280]),
-    "pistol-grip-upgrade": shot("grip", "Example: a close-up of a pistol grip on wood", 960, 1200, [640, 960]),
-    "tactical-edc-light": shot("light", "Example: a black handheld spotlight on a wooden desk", 960, 1200, [640, 960])
+    "edc-gear-pouch": shot("pouch", "Example: a dark leather pouch with stitching", 1280, 1600, [640, 1280]),
+    "iwb-kydex-holster": shot("holster", "Example: a black leather holster", 1280, 1600, [640, 1280]),
+    "pistol-grip-upgrade": shot("grip", "Example: a close-up of a stippled pistol grip", 1280, 1600, [640, 1280]),
+    "tactical-edc-light": shot("light", "Example: a black flashlight", 1280, 1600, [640, 1280])
   };
   products.forEach(function (product) {
     product.image = photos[product.id];
@@ -159,7 +159,7 @@
     photoHtml: function (image, opts) {
       opts = opts || {};
       if (!image) return "";
-      var sizes = opts.sizes || "(min-width: 1440px) 22vw, (min-width: 700px) 45vw, 92vw";
+      var sizes = opts.sizes || "(min-width: 1440px) 22vw, (min-width: 700px) 70vw, 92vw";
       var load = opts.eager ? ' fetchpriority="high"' : ' loading="lazy"';
       return '<div class="photo-slot photo-real">' +
         '<img src="' + esc(image.src) + '" srcset="' + esc(image.srcset) + '" sizes="' + esc(sizes) + '" alt="' + esc(image.alt) + '" width="' + image.width + '" height="' + image.height + '"' + load + ' decoding="async">' +

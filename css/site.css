@@ -374,6 +374,9 @@ main { display: block; }
   inset: 0;
   background: linear-gradient(100deg, rgba(26, 25, 22, 0.9) 0%, rgba(44, 51, 36, 0.78) 46%, rgba(26, 25, 22, 0.62) 100%);
 }
+.hero-home .hero-overlay {
+  background: rgba(44, 51, 36, 0.8);
+}
 .hero-embers {
   z-index: 2;
   width: 100%;
