@@ -2,7 +2,7 @@
 
 The photographs in `assets/photos/` are resized WebP crops of licensed stock. They are example images until the client supplies photography. No AI images were used.
 
-Home hero, brand story, About, and the gear-up band use the same four Unsplash photographs as before. Desktop files are 1440, 1920, and 2880 pixels wide. `*-phone.webp` files are portrait crops for narrow screens: forest and pines are 1300×2900. The ridge original is 3264×1840 and the lava original is 3000×1688, so those phone crops are 1300 pixels wide at the full source height and are not upscaled.
+Home hero, brand story, About, and the gear-up band use the same four Unsplash photographs as before. Desktop files are 1440, 1920, and 2880 pixels wide. `*-phone.webp` files are portrait crops for narrow screens: forest and pines are 1300×2900. `*-tablet.webp` files are 1800×2600 portrait crops of the same forest and pines photographs, for portrait tablets. The ridge original is 3264×1840 and the lava original is 3000×1688, so those phone crops are 1300 pixels wide at the full source height and are not upscaled. The Everyday Carry file also includes a 1280-wide crop of the same Pexels photograph.
 
 License pages: [Unsplash License](https://unsplash.com/license), [Pexels License](https://www.pexels.com/license/).
 

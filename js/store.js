@@ -78,7 +78,7 @@
         '<p class="crumb"><a href="shop.html">Shop</a> / <a href="category.html?c=accessories">Accessories</a></p>' +
         '<div class="product-layout">' +
           '<div class="gallery">' +
-            photoSlot("PRODUCT PHOTO — client to supply", product.image, { eager: true, sizes: "(min-width: 720px) 48vw, 92vw" }) +
+            photoSlot("PRODUCT PHOTO — client to supply", product.image, { eager: true, sizes: "(min-width: 720px) 80vw, 160vw" }) +
           "</div>" +
           '<div class="product-buy">' +
             '<p class="kicker">Accessories</p>' +
@@ -135,7 +135,7 @@
       });
     }
     return '<article class="cart-line" data-line="' + esc(line.id) + '">' +
-      photoSlot("PRODUCT PHOTO — client to supply", product && product.image, { sizes: "140px" }) +
+      photoSlot("PRODUCT PHOTO — client to supply", product && product.image, { sizes: "(max-width: 719px) 150vw, 140px" }) +
       '<div><h2><a href="product.html?id=' + esc(line.productId) + '">' + esc(name) + "</a></h2>" +
       "<p>" + esc(variant) + "</p>" +
       '<label>Quantity <input class="line-qty" type="number" min="1" max="99" value="' + esc(line.qty) + '" inputmode="numeric"></label> ' +

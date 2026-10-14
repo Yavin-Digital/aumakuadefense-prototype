@@ -166,7 +166,6 @@
         y: 24,
         duration: 0.75,
         ease: "power2.out",
-        immediateRender: false,
         scrollTrigger: { trigger: el, start: "top 88%", once: true }
       });
     });
