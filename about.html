@@ -8,7 +8,7 @@
   <title>About — Aumakua Defense</title>
   <meta name="description" content="About Aumakua Defense. The owner story has not been supplied. The name is framed as a guardian spirit, pending client approval.">
   <link rel="canonical" href="https://aumakuadefense.clientreview.co/about.html">
-  <link rel="icon" href="assets/logo/aumakua-mark-white.png">
+  <link rel="icon" href="assets/logo/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Saira+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
@@ -18,7 +18,10 @@
 <body data-page="about">
   <main id="main">
     <section class="hero hero-about">
-      <img class="hero-about-photo" src="assets/photos/hawaii-ridge-1440.webp" srcset="assets/photos/hawaii-ridge-960.webp 960w, assets/photos/hawaii-ridge-1440.webp 1440w" sizes="100vw" alt="" width="1440" height="810" fetchpriority="high" decoding="async">
+      <picture>
+        <source media="(max-width: 759px)" srcset="assets/photos/hawaii-ridge-phone.webp" type="image/webp">
+        <img class="hero-about-photo" src="assets/photos/hawaii-ridge-1920.webp" srcset="assets/photos/hawaii-ridge-1440.webp 1440w, assets/photos/hawaii-ridge-1920.webp 1920w, assets/photos/hawaii-ridge-2880.webp 2880w" sizes="150vw" alt="" width="2880" height="1620" fetchpriority="high" decoding="async">
+      </picture>
       <div class="hero-overlay"></div>
       <div class="hero-copy">
         <p class="kicker">About</p>

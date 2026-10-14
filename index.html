@@ -7,9 +7,10 @@
   <meta name="robots" content="noindex">
   <title>Aumakua Defense</title>
   <meta name="description" content="Aumakua Defense. Where Ancient Protection Meets Modern Precision. Prototype storefront. Product names and prices have not been supplied. Photographs are labeled examples.">
-  <link rel="preload" as="image" href="assets/photos/hero-forest-1440.webp" imagesrcset="assets/photos/hero-forest-960.webp 960w, assets/photos/hero-forest-1440.webp 1440w, assets/photos/hero-forest-1920.webp 1920w" imagesizes="100vw">
+  <link rel="preload" as="image" href="assets/photos/hero-forest-phone.webp" media="(max-width: 759px)">
+  <link rel="preload" as="image" href="assets/photos/hero-forest-2880.webp" imagesrcset="assets/photos/hero-forest-1440.webp 1440w, assets/photos/hero-forest-1920.webp 1920w, assets/photos/hero-forest-2880.webp 2880w" imagesizes="200vw" media="(min-width: 760px)">
   <link rel="canonical" href="https://aumakuadefense.clientreview.co/index.html">
-  <link rel="icon" href="assets/logo/aumakua-mark-white.png">
+  <link rel="icon" href="assets/logo/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Saira+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
@@ -29,8 +30,14 @@
   <main id="main">
     <section class="hero hero-home">
       <div class="hero-layers">
-        <img class="hero-layer hero-layer-far" src="assets/photos/hero-forest-1440.webp" srcset="assets/photos/hero-forest-960.webp 960w, assets/photos/hero-forest-1440.webp 1440w, assets/photos/hero-forest-1920.webp 1920w" sizes="100vw" alt="" width="1440" height="810" fetchpriority="high" decoding="async">
-        <img class="hero-layer hero-layer-near" src="assets/photos/hero-pines-1440.webp" srcset="assets/photos/hero-pines-960.webp 960w, assets/photos/hero-pines-1440.webp 1440w, assets/photos/hero-pines-1920.webp 1920w" sizes="100vw" alt="" width="1440" height="810" fetchpriority="low" decoding="async">
+        <picture>
+          <source media="(max-width: 759px)" srcset="assets/photos/hero-forest-phone.webp" type="image/webp">
+          <img class="hero-layer hero-layer-far" src="assets/photos/hero-forest-1920.webp" srcset="assets/photos/hero-forest-1440.webp 1440w, assets/photos/hero-forest-1920.webp 1920w, assets/photos/hero-forest-2880.webp 2880w" sizes="200vw" alt="" width="2880" height="1620" fetchpriority="high" decoding="async">
+        </picture>
+        <picture>
+          <source media="(max-width: 759px)" srcset="assets/photos/hero-pines-phone.webp" type="image/webp">
+          <img class="hero-layer hero-layer-near" src="assets/photos/hero-pines-1920.webp" srcset="assets/photos/hero-pines-1440.webp 1440w, assets/photos/hero-pines-1920.webp 1920w, assets/photos/hero-pines-2880.webp 2880w" sizes="150vw" alt="" width="2880" height="1620" fetchpriority="low" decoding="async">
+        </picture>
         <div class="hero-overlay"></div>
       </div>
       <canvas class="hero-embers" id="hero-embers" aria-hidden="true"></canvas>
@@ -50,7 +57,10 @@
         </div>
         <div class="hero-mark">
           <div class="mark-frame">
-            <img src="assets/logo/aumakua-mark-copper.png" alt="">
+            <picture>
+              <source media="(max-width: 1023px)" srcset="assets/logo/aumakua-mark-copper-800.webp" type="image/webp">
+              <img src="assets/logo/aumakua-mark-copper.webp" srcset="assets/logo/aumakua-mark-copper-800.webp 800w, assets/logo/aumakua-mark-copper.webp 1932w" sizes="(min-width: 1200px) 70vw, 50vw" alt="" width="1932" height="1220" decoding="async">
+            </picture>
             <span class="mark-sheen" aria-hidden="true"></span>
           </div>
         </div>
@@ -64,7 +74,10 @@
     </div>
     <section class="room room-ink story reveal">
       <div class="story-bg" aria-hidden="true">
-        <img src="assets/photos/hawaii-ridge-960.webp" srcset="assets/photos/hawaii-ridge-960.webp 960w, assets/photos/hawaii-ridge-1440.webp 1440w" sizes="100vw" alt="" width="960" height="540" loading="lazy" decoding="async">
+        <picture>
+          <source media="(max-width: 759px)" srcset="assets/photos/hawaii-ridge-phone.webp" type="image/webp">
+          <img src="assets/photos/hawaii-ridge-1920.webp" srcset="assets/photos/hawaii-ridge-1440.webp 1440w, assets/photos/hawaii-ridge-1920.webp 1920w, assets/photos/hawaii-ridge-2880.webp 2880w" sizes="150vw" alt="" width="2880" height="1620" loading="lazy" decoding="async">
+        </picture>
       </div>
       <div class="story-shade" aria-hidden="true"></div>
       <div class="room-inner story-copy">
@@ -126,7 +139,10 @@
       </div>
     </section>
     <section class="gear-cta reveal">
-      <img class="gear-bg" src="assets/photos/lava-960.webp" srcset="assets/photos/lava-960.webp 960w, assets/photos/lava-1440.webp 1440w" sizes="100vw" alt="" width="960" height="540" loading="lazy" decoding="async">
+      <picture>
+        <source media="(max-width: 759px)" srcset="assets/photos/lava-phone.webp" type="image/webp">
+        <img class="gear-bg" src="assets/photos/lava-1920.webp" srcset="assets/photos/lava-1440.webp 1440w, assets/photos/lava-1920.webp 1920w, assets/photos/lava-2880.webp 2880w" sizes="150vw" alt="" width="2880" height="1620" loading="lazy" decoding="async">
+      </picture>
       <div class="gear-shade" aria-hidden="true"></div>
       <div class="room-inner">
         <p class="kicker">The shop</p>

@@ -36,7 +36,7 @@
   header.innerHTML =
     '<div class="site-bar">' +
       '<a class="logo" href="index.html">' +
-        '<img class="logo-mark" src="assets/logo/aumakua-mark-copper.png" alt="Aumakua Defense">' +
+        '<img class="logo-mark" src="assets/logo/aumakua-mark-copper-320.webp" width="1932" height="1220" alt="Aumakua Defense">' +
         '<img class="logo-word" src="assets/logo/aumakua-wordmark-copper-2x.png" alt="">' +
       "</a>" +
       '<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">' + icon("menu") + '<span>Menu</span></button>' +
@@ -122,7 +122,7 @@
   function questionView() {
     gate.innerHTML =
       '<div class="age-card">' +
-        '<img src="assets/logo/aumakua-mark-copper.png" alt="Aumakua Defense">' +
+        '<img src="assets/logo/aumakua-mark-copper-800.webp" width="1932" height="1220" alt="Aumakua Defense">' +
         '<h2 id="age-title">You must be 21 or older to enter this site</h2>' +
         '<div class="age-actions">' +
           '<button type="button" class="btn" id="age-yes">I am 21 or older</button>' +
@@ -141,7 +141,7 @@
   function exitView() {
     gate.innerHTML =
       '<div class="age-card">' +
-        '<img src="assets/logo/aumakua-mark-copper.png" alt="Aumakua Defense">' +
+        '<img src="assets/logo/aumakua-mark-copper-800.webp" width="1932" height="1220" alt="Aumakua Defense">' +
         '<h2 id="age-title">Please come back when you are 21 or older</h2>' +
         '<p>This site is limited to visitors who are 21 or older. You can close this tab to leave.</p>' +
         '<div class="age-actions">' +
@@ -237,19 +237,27 @@
   }
   document.addEventListener("DOMContentLoaded", initReveal);
   setTimeout(function () {
+    function shown(el) {
+      if (!el || !el.getBoundingClientRect) return false;
+      var rect = el.getBoundingClientRect();
+      return rect.bottom > 0 && rect.top < window.innerHeight;
+    }
     if (window.ScrollTrigger) {
       window.ScrollTrigger.getAll().forEach(function (trigger) {
+        if (!shown(trigger.trigger)) return;
         if (trigger.animation) trigger.animation.progress(1);
         trigger.kill();
       });
     }
     Array.prototype.forEach.call(document.querySelectorAll(".reveal"), function (el) {
+      if (!shown(el)) return;
       el.classList.add("is-in");
       el.style.removeProperty("opacity");
       el.style.removeProperty("transform");
       el.style.removeProperty("visibility");
     });
     Array.prototype.forEach.call(document.querySelectorAll("[data-count]"), function (el) {
+      if (!shown(el)) return;
       var finalValue = el.getAttribute("data-count");
       if (finalValue) el.textContent = finalValue;
     });

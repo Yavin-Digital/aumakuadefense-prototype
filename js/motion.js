@@ -10,7 +10,7 @@
     if (!canvas || !canvas.getContext) return;
     var ctx = canvas.getContext("2d");
     var mobileQuery = window.matchMedia("(max-width: 700px)");
-    var count = mobileQuery.matches ? 14 : 32;
+    var count = mobileQuery.matches ? 6 : 14;
     var dots = [];
     var width = 0;
     var height = 0;
@@ -35,7 +35,7 @@
 
     function size() {
       var rect = canvas.getBoundingClientRect();
-      var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      var dpr = Math.min(window.devicePixelRatio || 1, mobileQuery.matches ? 1 : 1.25);
       width = Math.max(1, rect.width);
       height = Math.max(1, rect.height);
       canvas.width = Math.round(width * dpr);
@@ -49,15 +49,21 @@
       frameId = 0;
     }
 
-    function tick() {
+    var last = 0;
+    function tick(now) {
       if (!running) return;
+      frameId = requestAnimationFrame(tick);
+      if (!last) last = now;
+      if (now - last < 50) return;
+      var step = Math.min((now - last) / 16.7, 4);
+      last = now;
       ctx.clearRect(0, 0, width, height);
       var i;
       for (i = 0; i < dots.length; i += 1) {
         var dot = dots[i];
-        dot.y -= dot.v;
-        dot.drift += 0.012;
-        dot.x += Math.sin(dot.drift) * 0.0007;
+        dot.y -= dot.v * step;
+        dot.drift += 0.012 * step;
+        dot.x += Math.sin(dot.drift) * 0.0007 * step;
         if (dot.y < -0.03) {
           dot.y = 1.03;
           dot.x = Math.random();
@@ -67,7 +73,6 @@
         ctx.arc(dot.x * width, dot.y * height, dot.r, 0, Math.PI * 2);
         ctx.fill();
       }
-      frameId = requestAnimationFrame(tick);
     }
 
     function start() {
@@ -80,7 +85,7 @@
     size();
     window.addEventListener("resize", size);
     mobileQuery.addEventListener("change", function () {
-      count = mobileQuery.matches ? 14 : 32;
+      count = mobileQuery.matches ? 6 : 14;
       seed();
     });
     document.addEventListener("visibilitychange", function () {
