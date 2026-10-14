@@ -262,5 +262,47 @@
       if (finalValue) el.textContent = finalValue;
     });
   }, 2000);
-  setTimeout(function(){if(window.ScrollTrigger)ScrollTrigger.getAll().forEach(function(t){t.animation&&t.animation.progress(1);t.kill()})},8000)
+  setTimeout(function () {
+    function shown(el) {
+      if (!el || !el.getBoundingClientRect) return false;
+      var rect = el.getBoundingClientRect();
+      return rect.bottom > 0 && rect.top < window.innerHeight;
+    }
+    function stillHidden(el) {
+      if (!el) return false;
+      var style = window.getComputedStyle(el);
+      if (parseFloat(style.opacity) < 0.99) return true;
+      if (style.visibility === "hidden") return true;
+      if (el.classList && el.classList.contains("weave-draw") && !el.classList.contains("is-in")) return true;
+      return false;
+    }
+    if (window.ScrollTrigger) {
+      window.ScrollTrigger.getAll().slice().forEach(function (trigger) {
+        var root = trigger.trigger;
+        if (!shown(root)) return;
+        var targets = (trigger.animation && trigger.animation.targets) ? trigger.animation.targets() : [];
+        var stuck = stillHidden(root);
+        for (var i = 0; i < targets.length; i++) {
+          if (stillHidden(targets[i])) stuck = true;
+        }
+        if (!stuck && root && root.children) {
+          for (var c = 0; c < root.children.length; c++) {
+            if (stillHidden(root.children[c])) stuck = true;
+          }
+        }
+        if (!stuck) return;
+        if (trigger.animation) trigger.animation.progress(1);
+        if (root && root.classList && root.classList.contains("weave-draw")) root.classList.add("is-in");
+        trigger.kill();
+      });
+    }
+    Array.prototype.forEach.call(document.querySelectorAll(".reveal > *, .weave-draw"), function (el) {
+      var root = el.classList && el.classList.contains("weave-draw") ? el : el.parentNode;
+      if (!shown(root) || !stillHidden(el)) return;
+      el.style.opacity = "1";
+      el.style.transform = "none";
+      el.style.visibility = "visible";
+      if (el.classList.contains("weave-draw")) el.classList.add("is-in");
+    });
+  }, 8000);
 })();

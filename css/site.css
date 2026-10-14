@@ -369,6 +369,27 @@ main { display: block; }
   -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent 74%);
   mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent 74%);
 }
+@media (min-width: 760px) and (max-width: 1199px) and (orientation: portrait) {
+  .hero-home {
+    min-height: min(calc(100svh - var(--header-h, 64px)), 1100px);
+    height: min(calc(100svh - var(--header-h, 64px)), 1100px);
+  }
+  .hero-layer-far {
+    top: 0;
+    height: 100%;
+    transform: none;
+  }
+}
+@media (min-width: 1600px) and (orientation: landscape) {
+  .hero-layer-far {
+    top: -3%;
+    height: 106%;
+    transform: none;
+  }
+  .hero-layer-near {
+    transform: none;
+  }
+}
 .hero-overlay {
   position: absolute;
   inset: 0;
@@ -945,6 +966,9 @@ body[data-page="about"] { background: #1A1916; }
   left: auto;
   z-index: 3;
   margin: 0;
+}
+@media (max-width: 759px) {
+  .gear-cta .example-label { bottom: 16px; }
 }
 html.gsap-motion .reveal {
   opacity: 1;

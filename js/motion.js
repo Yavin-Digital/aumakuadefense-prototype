@@ -109,9 +109,28 @@
     var near = document.querySelector(".hero-layer-near");
     if (!hero || !far) return;
     var scheduled = false;
+    function portraitTablet() {
+      return window.matchMedia("(min-width: 760px) and (max-width: 1199px) and (orientation: portrait)").matches;
+    }
+    function wideLandscape() {
+      return window.matchMedia("(min-width: 1600px) and (orientation: landscape)").matches;
+    }
     function apply() {
       scheduled = false;
       var rect = hero.getBoundingClientRect();
+      if (portraitTablet()) {
+        far.style.transform = "none";
+        if (near && rect.bottom >= 0 && rect.top <= window.innerHeight) {
+          var tabletTravel = Math.max(0, -rect.top);
+          near.style.transform = "translate3d(0," + (tabletTravel * 0.28).toFixed(1) + "px,0) scale(1.1)";
+        }
+        return;
+      }
+      if (wideLandscape()) {
+        far.style.transform = "none";
+        if (near) near.style.transform = "none";
+        return;
+      }
       if (rect.bottom < 0 || rect.top > window.innerHeight) return;
       var travel = Math.max(0, -rect.top);
       var small = window.innerWidth < 700;
@@ -124,6 +143,7 @@
       requestAnimationFrame(apply);
     }
     window.addEventListener("scroll", request, { passive: true });
+    window.addEventListener("resize", request, { passive: true });
     apply();
   }
 

@@ -159,18 +159,20 @@
     photoHtml: function (image, opts) {
       opts = opts || {};
       if (!image) return "";
-      var sizes = opts.sizes || "(min-width: 1440px) 22vw, (min-width: 700px) 70vw, 92vw";
+      var sizes = opts.related
+        ? "(min-width: 1440px) 34vw, (min-width: 700px) 70vw, 92vw"
+        : (opts.sizes || "(min-width: 1440px) 22vw, (min-width: 700px) 70vw, 92vw");
       var load = opts.eager ? ' fetchpriority="high"' : ' loading="lazy"';
       return '<div class="photo-slot photo-real">' +
         '<img src="' + esc(image.src) + '" srcset="' + esc(image.srcset) + '" sizes="' + esc(sizes) + '" alt="' + esc(image.alt) + '" width="' + image.width + '" height="' + image.height + '"' + load + ' decoding="async">' +
         '<span class="example-label">Example image</span></div>';
     },
-    tileHtml: function (product) {
+    tileHtml: function (product, opts) {
       var tags = product.tags.map(function (id) {
         return '<span class="mini-tag">' + esc(tagNames[id] || id) + "</span>";
       }).join("");
       return '<a class="product-tile" href="product.html?id=' + esc(product.id) + '">' +
-        window.AD.photoHtml(product.image) +
+        window.AD.photoHtml(product.image, opts) +
         '<span class="tile-body">' +
           '<span class="tile-title">' + esc(product.title + " — name TBC") + "</span>" +
           '<span class="tile-meta">' + tags + "</span>" +

@@ -14,7 +14,7 @@ License pages: [Unsplash License](https://unsplash.com/license), [Pexels License
 | `hawaii-ridge-*.webp` | Gear-up band and About | Nick Thomas | https://unsplash.com/photos/a-grassy-area-with-hills-in-the-background-m4tVvW_ln3E | Unsplash License |
 | `range-*.webp` | Built for: Range | waa towaw | https://unsplash.com/photos/rifle-on-a-stand-at-a-shooting-range-CUcLgVjrCP4 | Unsplash License |
 | `field-*.webp` | Built for: Field | Philipp Aleev | https://www.pexels.com/photo/brown-backpack-hanging-from-the-tree-trunk-9088788/ | Pexels License |
-| `edc-*.webp` | Built for: Everyday Carry | Vlada Karpovich | https://www.pexels.com/photo/gray-shirt-and-leather-wallet-on-wooden-surface-4452373/ | Pexels License |
+| `edc-*.webp` | Built for: Everyday Carry | Andrew Neel | https://www.pexels.com/photo/silver-keys-on-brown-wooden-surface-5598028/ | Pexels License |
 | `holster-*.webp` | IWB Kydex Holster card and spotlight | seeetz | https://unsplash.com/photos/a-close-up-of-a-leather-gun-holster-m9_RhYZ4Y_w | Unsplash License |
 | `pouch-*.webp` | EDC Gear Pouch card | Kristian Bøgh | https://www.pexels.com/photo/close-up-photo-of-a-brown-leather-bag-10340652/ | Pexels License |
 | `grip-*.webp` | Pistol Grip Upgrade card | Thomas Tucker | https://unsplash.com/photos/a-close-up-of-a-gun-on-a-wooden-surface-dAoj0nGmAi8 | Unsplash License |

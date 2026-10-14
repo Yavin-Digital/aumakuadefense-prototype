@@ -12,8 +12,8 @@
     return '<div class="photo-slot" role="img" aria-label="' + esc(label) + '"><span>' + esc(label) + "</span></div>";
   }
 
-  function tile(product) {
-    return window.AD.tileHtml(product);
+  function tile(product, opts) {
+    return window.AD.tileHtml(product, opts);
   }
 
   function moneyDash() {
@@ -69,7 +69,9 @@
     }
     document.title = window.AD.displayName(product) + " — Aumakua Defense";
     var variant = product.variants[0];
-    var related = window.AD.related(product).map(tile).join("");
+    var related = window.AD.related(product).map(function (item) {
+      return tile(item, { related: true });
+    }).join("");
     var options = product.variants.map(function (item) {
       return '<option value="' + esc(item.id) + '">' + esc(item.name) + "</option>";
     }).join("");
