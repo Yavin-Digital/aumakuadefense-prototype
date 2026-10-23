@@ -59,3 +59,34 @@ Full-screen dialog from `js/layout.js` until `localStorage.ad_age_ok` is `1`. Co
 | Date | Change |
 |---|---|
 | 2026-10-13 | Prototype build: brand guide and Letter PDF, storefront, simulated cart and checkout, age gate, deck, scope stub. |
+
+## Admin prototype (`/admin/`)
+
+Static HTML, shared styles in `admin/admin.css` on top of `css/tokens.css`. Sample data only. Desktop sidebar from 1024px; Menu button below. Built from MedRepsRX (`app/(admin)/admin/layout.tsx` nav, `prisma/schema.prisma` models).
+
+| MedRepsRX admin feature | Aumakua admin page |
+|---|---|
+| /login + ADMIN_ACCESS capability (Super Admin, Admin, Customer) | `admin/index.html` sign-in (visual only) |
+| Dashboard (revenue, orders, products, customers, 30-day chart, recent orders, sync status) | `admin/dashboard.html` |
+| Orders + OrdersToolbar (search, status, date, export) | `admin/orders.html` |
+| Order detail (items, totals, OrderEvent history, notes, status/tracking actions, full/partial refund) | `admin/order.html` |
+| Products (ProductsTable, status/stock filters, overrides) | `admin/products.html`, `admin/product.html` |
+| Users + user detail (roles, notes, resend invite, convert to affiliate) | `admin/users.html`, `admin/user.html` |
+| Affiliates, Applications | `admin/affiliates.html`, `admin/applications.html` (confirm Aumakua needs them) |
+| Bundles | `admin/bundles.html` |
+| Coupons | `admin/coupons.html` |
+| Tax Rates (per state + fallback) | `admin/tax.html` |
+| Shipping zones + methods | `admin/shipping.html` |
+| Sync (Medi-Mate catalog, SyncLog) | `admin/sync.html` (per-distributor) |
+| Emails (template previews) | `admin/emails.html` |
+| Settings & Diagnostics (store, gateway mode, code mode) | `admin/settings.html` |
+
+| Aumakua-only addition | Where |
+|---|---|
+| FFL required / serialized flag | product edit, products filter |
+| Split shipments (home + FFL dealer) | order detail, orders filter, shipping |
+| FFL dealer lookup (zip radius) + saved/manual dealers | `admin/ffl-dealers.html` |
+| Manual FFL review queue (upload, verify, approve/hold, contact) | `admin/ffl-review.html` |
+| State restrictions (e.g. CA/WA magazine capacity) | `admin/restrictions.html`, product edit |
+| Multi-distributor API sync (inventory, pricing, fulfillment; Example names) | `admin/sync.html`, product edit |
+| Age gate 18+/21+ setting, FFL notification templates | `admin/settings.html`, `admin/emails.html` |

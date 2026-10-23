@@ -31,3 +31,7 @@ Unknowns stay blank on purpose.
 ## Home section order and motion (2026-10-23)
 
 Home order: hero, weave divider, Built for, Shop (catalog), Featured spotlight, brand story, gear-up CTA. Product-card tilt max 2.5deg (Y) / 2deg (X) with eased smoothing; hero parallax about half the original strength; all motion off under prefers-reduced-motion; embers kept.
+
+## Admin (prototype)
+
+Static admin pages at `/admin/` (sign-in at `admin/index.html`), sample data only, noindex and disallowed in robots. Structure mirrors the MedRepsRX admin (`Yavin-Digital/MedRepsRX`, `app/(admin)/admin/*`) because Aumakua will use the same backend. Aumakua additions, each marked in the UI: FFL required / serialized product flag, split shipments (home + FFL dealer), FFL dealer lookup and manual review queue, state restrictions, multi-distributor API sync. Launch sells non-serialized accessories only; FFL rows are future examples. The site stops at payment; fulfillment is outside it.

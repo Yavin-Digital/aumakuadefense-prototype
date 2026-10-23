@@ -29,7 +29,8 @@
   banner.setAttribute("role", "note");
   banner.innerHTML = '<p class="proto-banner-text">Prototype</p>' +
     '<a href="performance.html">Performance</a>' +
-    '<a href="compare/AumakuaDefense-SEO-AEO-Compare.html">SEO / AEO</a>';
+    '<a href="compare/AumakuaDefense-SEO-AEO-Compare.html">SEO / AEO</a>' +
+    '<a href="admin/index.html">Admin</a>';
 
   var header = document.createElement("header");
   header.className = "site-header";
@@ -60,6 +61,7 @@
         '<a href="terms.html">Terms</a>' +
         '<a href="brand.html">Brand standards</a>' +
         '<a href="AumakuaDefense-Presentation.html">Presentation</a>' +
+        '<a href="admin/index.html">Admin</a>' +
       "</nav>" +
       '<p class="footer-credit">Website by <a href="https://thetribemaker.com">The Tribe Maker</a>.</p>' +
     "</div>";
