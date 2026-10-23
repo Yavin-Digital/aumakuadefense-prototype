@@ -15,7 +15,9 @@ License pages: [Unsplash License](https://unsplash.com/license), [Pexels License
 | `range-*.webp` | Built for: Range | waa towaw | https://unsplash.com/photos/rifle-on-a-stand-at-a-shooting-range-CUcLgVjrCP4 | Unsplash License |
 | `field-*.webp` | Built for: Field | Philipp Aleev | https://www.pexels.com/photo/brown-backpack-hanging-from-the-tree-trunk-9088788/ | Pexels License |
 | `edc-*.webp` | Built for: Everyday Carry | Andrew Neel | https://www.pexels.com/photo/silver-keys-on-brown-wooden-surface-5598028/ | Pexels License |
-| `holster-*.webp` | IWB Kydex Holster card and spotlight | seeetz | https://unsplash.com/photos/a-close-up-of-a-leather-gun-holster-m9_RhYZ4Y_w | Unsplash License |
-| `pouch-*.webp` | EDC Gear Pouch card | Kristian Bøgh | https://www.pexels.com/photo/close-up-photo-of-a-brown-leather-bag-10340652/ | Pexels License |
-| `grip-*.webp` | Pistol Grip Upgrade card | Thomas Tucker | https://unsplash.com/photos/a-close-up-of-a-gun-on-a-wooden-surface-dAoj0nGmAi8 | Unsplash License |
-| `light-*.webp` | Tactical EDC Light card | Fortal Fototeca | https://www.pexels.com/photo/black-flashlight-on-brown-wooden-table-12348706/ | Pexels License |
+| `holster-*.webp` | OWB/IWB Holster (Example) card and spotlight | seeetz | https://unsplash.com/photos/a-close-up-of-a-leather-gun-holster-m9_RhYZ4Y_w | Unsplash License |
+| `pouch-*.webp` | Unused since 2026-10-23 (was EDC Gear Pouch card) | Kristian Bøgh | https://www.pexels.com/photo/close-up-photo-of-a-brown-leather-bag-10340652/ | Pexels License |
+| `grip-*.webp` | Unused since 2026-10-23 (was Pistol Grip Upgrade card) | Thomas Tucker | https://unsplash.com/photos/a-close-up-of-a-gun-on-a-wooden-surface-dAoj0nGmAi8 | Unsplash License |
+| `light-*.webp` | Tactical Flashlight (Example) card | Fortal Fototeca | https://www.pexels.com/photo/black-flashlight-on-brown-wooden-table-12348706/ | Pexels License |
+| `scope-*.webp` | Rifle Scope (Example) card, 1280×1600 crop of a 5472×3648 original, not upscaled | Thomas Tucker | https://unsplash.com/photos/rules-of-third-photography-of-sniper-rifle-2q3RH6grop4 | Unsplash License |
+| `carrier-*.webp` | Plate Carrier (Example) card, 3648×4560 crop of a 3648×5472 original, not upscaled | Taiwangun | https://unsplash.com/photos/soldier-wearing-camouflage-tactical-vest-tkliSKOO9Ck | Unsplash License |

@@ -1,21 +1,22 @@
-/* Global catalog, categories, and NAP. Prices, photos, specs, and contact
-   details are unpublished. Do not put a number in price. */
+/* Global catalog, categories, and NAP. Products are generic EXAMPLE items
+   (non-FFL accessories only, no brands). priceLabel shows an example price;
+   price stays null so cart totals stay blank until the client supplies real prices. */
 (function () {
   var products = [
     {
-      id: "edc-gear-pouch",
-      slug: "edc-gear-pouch",
-      title: "EDC Gear Pouch",
-      nameStatus: "Name TBC",
+      id: "plate-carrier",
+      slug: "plate-carrier",
+      title: "Plate Carrier",
+      nameStatus: "Example item",
       categoryId: "accessories",
-      tags: ["edc"],
+      tags: ["carriers"],
       price: null,
-      priceLabel: "Price: client to supply",
+      priceLabel: "Example price: $149",
       description: "[CLIENT TO SUPPLY]",
       specs: "[CLIENT TO SUPPLY]",
       variants: [
         {
-          id: "edc-gear-pouch-unspecified",
+          id: "plate-carrier-unspecified",
           sku: "[CLIENT TO SUPPLY]",
           name: "Variant: client to supply",
           options: {},
@@ -24,19 +25,19 @@
       ]
     },
     {
-      id: "iwb-kydex-holster",
-      slug: "iwb-kydex-holster",
-      title: "IWB Kydex Holster",
-      nameStatus: "Name TBC",
+      id: "owb-iwb-holster",
+      slug: "owb-iwb-holster",
+      title: "OWB/IWB Holster",
+      nameStatus: "Example item",
       categoryId: "accessories",
       tags: ["holsters"],
       price: null,
-      priceLabel: "Price: client to supply",
+      priceLabel: "Example price: $59",
       description: "[CLIENT TO SUPPLY]",
       specs: "[CLIENT TO SUPPLY]",
       variants: [
         {
-          id: "iwb-kydex-holster-unspecified",
+          id: "owb-iwb-holster-unspecified",
           sku: "[CLIENT TO SUPPLY]",
           name: "Variant: client to supply",
           options: {},
@@ -45,19 +46,19 @@
       ]
     },
     {
-      id: "pistol-grip-upgrade",
-      slug: "pistol-grip-upgrade",
-      title: "Pistol Grip Upgrade",
-      nameStatus: "Name TBC",
+      id: "rifle-scope",
+      slug: "rifle-scope",
+      title: "Rifle Scope",
+      nameStatus: "Example item",
       categoryId: "accessories",
-      tags: ["grips"],
+      tags: ["optics"],
       price: null,
-      priceLabel: "Price: client to supply",
+      priceLabel: "Example price: $249",
       description: "[CLIENT TO SUPPLY]",
       specs: "[CLIENT TO SUPPLY]",
       variants: [
         {
-          id: "pistol-grip-upgrade-unspecified",
+          id: "rifle-scope-unspecified",
           sku: "[CLIENT TO SUPPLY]",
           name: "Variant: client to supply",
           options: {},
@@ -66,19 +67,19 @@
       ]
     },
     {
-      id: "tactical-edc-light",
-      slug: "tactical-edc-light",
-      title: "Tactical EDC Light",
-      nameStatus: "Name TBC",
+      id: "tactical-flashlight",
+      slug: "tactical-flashlight",
+      title: "Tactical Flashlight",
+      nameStatus: "Example item",
       categoryId: "accessories",
       tags: ["lights"],
       price: null,
-      priceLabel: "Price: client to supply",
+      priceLabel: "Example price: $79",
       description: "[CLIENT TO SUPPLY]",
       specs: "[CLIENT TO SUPPLY]",
       variants: [
         {
-          id: "tactical-edc-light-unspecified",
+          id: "tactical-flashlight-unspecified",
           sku: "[CLIENT TO SUPPLY]",
           name: "Variant: client to supply",
           options: {},
@@ -89,9 +90,9 @@
   ];
 
   var tagNames = {
-    edc: "EDC",
+    optics: "Optics",
     holsters: "Holsters",
-    grips: "Grips",
+    carriers: "Carriers",
     lights: "Lights"
   };
 
@@ -116,10 +117,10 @@
   }
 
   var photos = {
-    "edc-gear-pouch": shot("pouch", "Example: a close-up of brown leather", 1280, 1600, [640, 1280]),
-    "iwb-kydex-holster": shot("holster", "Example: a black leather holster", 1280, 1600, [640, 1280]),
-    "pistol-grip-upgrade": shot("grip", "Example: a close-up of a stippled pistol grip", 1280, 1600, [640, 1280]),
-    "tactical-edc-light": shot("light", "Example: a black flashlight", 1280, 1600, [640, 1280])
+    "plate-carrier": shot("carrier", "Example: a camouflage plate carrier worn from behind", 1280, 1600, [640, 1280]),
+    "owb-iwb-holster": shot("holster", "Example: a black leather holster", 1280, 1600, [640, 1280]),
+    "rifle-scope": shot("scope", "Example: a rifle scope with flip caps on a mounted rifle", 1280, 1600, [640, 1280]),
+    "tactical-flashlight": shot("light", "Example: a black flashlight", 1280, 1600, [640, 1280])
   };
   products.forEach(function (product) {
     product.image = photos[product.id];
@@ -138,9 +139,9 @@
       { id: "accessories", slug: "accessories", name: "Accessories" }
     ],
     tags: [
-      { id: "edc", name: "EDC" },
+      { id: "optics", name: "Optics" },
       { id: "holsters", name: "Holsters" },
-      { id: "grips", name: "Grips" },
+      { id: "carriers", name: "Carriers" },
       { id: "lights", name: "Lights" }
     ],
     products: products,
@@ -148,7 +149,7 @@
       return products.filter(function (p) { return p.id === id; })[0] || null;
     },
     displayName: function (product) {
-      return product.title + " — name TBC";
+      return product.title + " (Example)";
     },
     tagName: function (id) {
       return tagNames[id] || id;
@@ -174,7 +175,7 @@
       return '<a class="product-tile" href="product.html?id=' + esc(product.id) + '">' +
         window.AD.photoHtml(product.image, opts) +
         '<span class="tile-body">' +
-          '<span class="tile-title">' + esc(product.title + " — name TBC") + "</span>" +
+          '<span class="tile-title">' + esc(product.title + " (Example)") + "</span>" +
           '<span class="tile-meta">' + tags + "</span>" +
           '<span class="tile-price">' + esc(product.priceLabel) + "</span>" +
         "</span></a>";
