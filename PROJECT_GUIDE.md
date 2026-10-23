@@ -48,7 +48,7 @@ Catalog shape lines up with a later ecomm core: product, variant, category, cart
 | Deck | `AumakuaDefense-Presentation.html` |
 | SEO / AEO compare | `compare/AumakuaDefense-SEO-AEO-Compare.html` (facts file not edited) |
 
-Live KEEP urls map as: `/` → home, `/ols/products` → shop, each `/ols/products/{slug}` → `product.html?id={slug}`.
+Live KEEP urls map as: `/` → home, `/ols/products` → shop. The old live product slugs no longer map one-to-one: since 2026-10-23 the catalog holds four example items (`plate-carrier`, `owb-iwb-holster`, `rifle-scope`, `tactical-flashlight`), filter tags Optics, Holsters, Carriers, Lights. Example prices live in `priceLabel` only.
 
 ## Age gate
 

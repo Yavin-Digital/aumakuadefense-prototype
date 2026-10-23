@@ -122,7 +122,7 @@
         far.style.transform = "none";
         if (near && rect.bottom >= 0 && rect.top <= window.innerHeight) {
           var tabletTravel = Math.max(0, -rect.top);
-          near.style.transform = "translate3d(0," + (tabletTravel * 0.28).toFixed(1) + "px,0) scale(1.1)";
+          near.style.transform = "translate3d(0," + (tabletTravel * 0.14).toFixed(1) + "px,0) scale(1.1)";
         }
         return;
       }
@@ -134,8 +134,8 @@
       if (rect.bottom < 0 || rect.top > window.innerHeight) return;
       var travel = Math.max(0, -rect.top);
       var small = window.innerWidth < 700;
-      far.style.transform = "translate3d(0," + (travel * (small ? 0.06 : 0.16)).toFixed(1) + "px,0) scale(1.08)";
-      if (near) near.style.transform = "translate3d(0," + (travel * (small ? 0.1 : 0.28)).toFixed(1) + "px,0) scale(1.1)";
+      far.style.transform = "translate3d(0," + (travel * (small ? 0.03 : 0.08)).toFixed(1) + "px,0) scale(1.08)";
+      if (near) near.style.transform = "translate3d(0," + (travel * (small ? 0.05 : 0.14)).toFixed(1) + "px,0) scale(1.1)";
     }
     function request() {
       if (scheduled) return;
@@ -149,20 +149,41 @@
 
   function setupTilt() {
     if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    var MAX_Y = 2.5, MAX_X = 2;
+    var active = null, tx = 0, ty = 0, cx = 0, cy = 0, frame = 0;
+    function step() {
+      frame = 0;
+      if (!active) return;
+      cx += (tx - cx) * 0.12;
+      cy += (ty - cy) * 0.12;
+      active.style.setProperty("--tilt-x", cx.toFixed(2) + "deg");
+      active.style.setProperty("--tilt-y", cy.toFixed(2) + "deg");
+      if (Math.abs(tx - cx) > 0.01 || Math.abs(ty - cy) > 0.01) frame = requestAnimationFrame(step);
+      else if (tx === 0 && ty === 0) active = null;
+    }
+    function kick() { if (!frame) frame = requestAnimationFrame(step); }
     document.addEventListener("pointermove", function (event) {
       var card = event.target.closest && event.target.closest(".product-tile");
       if (!card) return;
+      if (active && active !== card) {
+        active.style.setProperty("--tilt-x", "0deg");
+        active.style.setProperty("--tilt-y", "0deg");
+        cx = cy = 0;
+      }
+      active = card;
       var box = card.getBoundingClientRect();
       var px = (event.clientX - box.left) / box.width - 0.5;
       var py = (event.clientY - box.top) / box.height - 0.5;
-      card.style.setProperty("--tilt-y", (px * 7).toFixed(2) + "deg");
-      card.style.setProperty("--tilt-x", (py * -6).toFixed(2) + "deg");
+      ty = px * 2 * MAX_Y;
+      tx = py * -2 * MAX_X;
+      kick();
     });
     document.addEventListener("pointerout", function (event) {
       var card = event.target.closest && event.target.closest(".product-tile");
       if (!card || (event.relatedTarget && card.contains(event.relatedTarget))) return;
-      card.style.setProperty("--tilt-x", "0deg");
-      card.style.setProperty("--tilt-y", "0deg");
+      if (card !== active) return;
+      tx = 0; ty = 0;
+      kick();
     });
   }
 

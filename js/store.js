@@ -43,7 +43,7 @@
     if (id === "accessories") {
       if (title) title.textContent = "Accessories";
       document.title = "Accessories — Aumakua Defense";
-    } else if (window.AD.tagName(id) && ["edc", "holsters", "grips", "lights"].indexOf(id) !== -1) {
+    } else if (window.AD.tagName(id) && ["optics", "holsters", "carriers", "lights"].indexOf(id) !== -1) {
       if (title) title.textContent = window.AD.tagName(id);
       document.title = window.AD.tagName(id) + " — Aumakua Defense";
       list = window.AD.products.filter(function (p) { return p.tags.indexOf(id) !== -1; });
@@ -100,7 +100,7 @@
         '<div class="measure">' +
           '<h2><span class="metal">Specs</span></h2>' +
           '<p class="chip-row"><span class="supply-chip">Specs — client to supply</span></p>' +
-          '<p class="review-note">Draft: no public name, price, spec, or photo was on the live store. The title is the slug in title case. Slug ' + esc(product.slug) + ".</p>" +
+          '<p class="review-note">Example item: a generic non-FFL accessory standing in until the client supplies real products. Name, price, and photo are examples only.</p>' +
         "</div>" +
       "</section>" +
       '<section class="room room-ink reveal"><div class="room-inner"><h2><span class="metal">Related</span></h2><div class="catalog catalog-related">' + related + "</div></div></section>";
