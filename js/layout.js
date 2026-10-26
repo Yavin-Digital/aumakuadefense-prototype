@@ -16,6 +16,8 @@
     ["home", "index.html", "Home"],
     ["shop", "shop.html", "Shop"],
     ["about", "about.html", "About"],
+    ["founder", "founder.html", "Founder"],
+    ["faq", "faq.html", "FAQ"],
     ["contact", "contact.html", "Contact"]
   ];
 
@@ -50,15 +52,20 @@
   footer.innerHTML =
     '<div class="measure footer-grid">' +
       '<div><img class="footer-word" src="assets/logo/aumakua-wordmark-copper-2x.png" width="560" height="100" alt="Aumakua Defense">' +
+      '<p class="footer-tagline">Where ancient protection meets modern precision</p>' +
+      '<p class="footer-nap"><a href="mailto:info@aumakuadefense.com">info@aumakuadefense.com</a><br><a href="tel:+14253452727">425-345-2727</a><br>2501 W Behrend #E51, Phoenix, AZ 85027<br>FFL licenses: <a href="mailto:ffl@aumakuadefense.com">ffl@aumakuadefense.com</a></p>' +
       '<p>Copyright © 2026 Aumakua Defense.</p></div>' +
       '<nav aria-label="Footer">' +
         '<a href="shop.html">Shop</a>' +
         '<a href="about.html">About</a>' +
+        '<a href="founder.html">Meet our founder</a>' +
+        '<a href="faq.html">FAQ</a>' +
         '<a href="contact.html">Contact</a>' +
-        '<a href="shipping.html">Shipping</a>' +
-        '<a href="returns.html">Returns</a>' +
-        '<a href="privacy.html">Privacy</a>' +
-        '<a href="terms.html">Terms</a>' +
+        '<a href="shipping.html">Shipping &amp; FFL</a>' +
+        '<a href="shipping.html#refunds">Refunds &amp; returns</a>' +
+        '<a href="safety.html">Product safety</a>' +
+        '<a href="privacy.html">Privacy policy</a>' +
+        '<a href="terms.html">Terms &amp; conditions</a>' +
         '<a href="brand.html">Brand standards</a>' +
         '<a href="AumakuaDefense-Presentation.html">Presentation</a>' +
         '<a href="admin/index.html">Admin</a>' +

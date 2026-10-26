@@ -130,9 +130,10 @@
     nap: {
       name: "Aumakua Defense",
       tagline: "Where Ancient Protection Meets Modern Precision",
-      phone: null,
-      email: null,
-      address: null,
+      phone: "425-345-2727",
+      email: "info@aumakuadefense.com",
+      fflEmail: "ffl@aumakuadefense.com",
+      address: "2501 W Behrend #E51, Phoenix, AZ 85027",
       hours: null
     },
     categories: [
