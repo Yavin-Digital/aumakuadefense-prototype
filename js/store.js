@@ -247,6 +247,7 @@
           "<p>Tax calculated at checkout</p>" +
           "<p>Shipping calculated at checkout</p>" +
           "<p><strong>Totals calculated once pricing is supplied.</strong></p>" +
+          '<label class="check agree"><input type="checkbox" name="agree" required> <span>I have read and agree to the Aumakua Defense <a href="safety.html">Product Safety &amp; Checkout Disclaimer</a>, <a href="terms.html">Terms &amp; Conditions</a>, and <a href="shipping.html">Shipping/FFL Policy</a>. I certify that I am of legal age to purchase the items in my cart and am legally permitted to possess them in my jurisdiction.</span></label>' +
           '<button class="btn" type="submit">Place order</button>' +
           '<p id="checkout-status" class="form-status" role="status"></p>' +
         "</aside>" +

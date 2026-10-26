@@ -22,11 +22,11 @@ Unknowns stay blank on purpose.
 |---|---|
 | Name | Aumakua Defense |
 | Tagline | Where Ancient Protection Meets Modern Precision |
-| Phone | |
-| Email | |
-| Address | |
+| Phone | 425-345-2727 |
+| Email | info@aumakuadefense.com (FFL licenses: ffl@aumakuadefense.com) |
+| Address | 2501 W Behrend #E51, Phoenix, AZ 85027 |
 | Hours | |
-| Owner | |
+| Owner | Josh Kaikala, Founder |
 
 ## Home section order and motion (2026-10-23)
 
@@ -35,3 +35,9 @@ Home order: hero, weave divider, Built for, Shop (catalog), Featured spotlight, 
 ## Admin (prototype)
 
 Static admin pages at `/admin/` (sign-in at `admin/index.html`), sample data only, noindex and disallowed in robots. Structure mirrors the MedRepsRX admin (`Yavin-Digital/MedRepsRX`, `app/(admin)/admin/*`) because Aumakua will use the same backend. Aumakua additions, each marked in the UI: FFL required / serialized product flag, split shipments (home + FFL dealer), FFL dealer lookup and manual review queue, state restrictions, multi-distributor API sync. Launch sells non-serialized accessories only; FFL rows are future examples. The site stops at payment; fulfillment is outside it.
+
+## Client copy (2026-10-26)
+
+Mike supplied final client copy, used verbatim: About, Meet the Founder (`founder.html`), Privacy, Terms, Shipping/FFL + Refund & Return (`shipping.html`; `returns.html` forwards to `shipping.html#refunds`), Product Safety & Checkout Disclaimer (`safety.html`), FAQ (`faq.html`). Effective/Last Updated 11/01/2026. Checkout has an unchecked required agreement checkbox (stub). No founder photo supplied; the mark stands in.
+
+Open flags: FAQ reads "(50 average)" with no $; phone 425 (WA) area code with a Phoenix address; legal copy covers firearms/ammo sales while launch catalog is non-FFL accessories only.

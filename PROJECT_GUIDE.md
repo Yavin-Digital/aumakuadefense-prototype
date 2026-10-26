@@ -42,7 +42,11 @@ Catalog shape lines up with a later ecomm core: product, variant, category, cart
 | Sample confirmation | `order-confirmation.html` |
 | About | `about.html` |
 | Contact | `contact.html` |
-| Shipping, returns, privacy, terms | matching HTML files |
+| Meet the Founder | `founder.html` |
+| FAQ | `faq.html` |
+| Shipping/FFL + Refund & Return | `shipping.html` (`returns.html` forwards) |
+| Product Safety & Checkout Disclaimer | `safety.html` |
+| Privacy, terms | matching HTML files |
 | Brand | `brand.html` |
 | Performance | `performance.html` |
 | Deck | `AumakuaDefense-Presentation.html` |
