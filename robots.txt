@@ -2,4 +2,3 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
-Sitemap: https://aumakuadefense.clientreview.co/sitemap.xml

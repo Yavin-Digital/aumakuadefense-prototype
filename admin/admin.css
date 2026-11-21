@@ -1,4 +1,4 @@
-/* Aumakua admin prototype. Reuses ../css/tokens.css only. Mobile first; breakpoints 640 / 1024; 12-col grid. */
+/* Aumakua admin. Reuses ../css/tokens.css only. Mobile first; breakpoints 640 / 1024; 12-col grid. */
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;font-family:var(--font-body);font-size:16px;line-height:1.5;color:var(--ink);background:var(--paper)}

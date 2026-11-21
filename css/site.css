@@ -1,4 +1,4 @@
-/* Aumakua Defense prototype. Military green, ink, and paper rooms. Copper jewelry. */
+/* Aumakua Defense. Military green, ink, and paper rooms. Copper jewelry. */
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 64px; }
@@ -12,12 +12,12 @@ body {
   font-weight: 400;
 }
 body.age-lock { overflow: hidden; }
-/* Reserve banner + header + weave until layout.js inserts them, so #main does not jump. */
+/* Reserve header + weave until layout.js inserts them, so #main does not jump. */
 html.js body:not(:has(> .site-header)) {
-  padding-top: calc(var(--header-h) + 73px);
+  padding-top: calc(var(--header-h) + 24px);
 }
 html.js body[data-page="deck"]:not(:has(> .site-header)) {
-  padding-top: calc(var(--header-h) + 49px);
+  padding-top: calc(var(--header-h) + 0px);
 }
 img { max-width: 100%; height: auto; }
 a { color: #DF9A73; }
@@ -53,34 +53,6 @@ code { font-size: 0.9em; }
 .skip:focus { top: 0; transform: none; }
 .skip:focus:not(:focus-visible) { transform: translateY(-120%); }
 
-.proto-banner {
-  position: sticky;
-  top: 0;
-  z-index: 40;
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 8px 14px;
-  align-items: center;
-  background: var(--ink);
-  color: var(--paper);
-  min-height: 48px;
-  padding: 0 12px;
-  border-bottom: 1px solid var(--line);
-  white-space: nowrap;
-}
-.proto-banner-text { margin: 0; font-size: 1rem; }
-.proto-banner a {
-  min-height: 48px;
-  display: inline-flex;
-  align-items: center;
-  padding: 0 2px;
-  color: #DF9A73;
-  font-size: 1rem;
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  white-space: nowrap;
-}
 
 .site-header {
   position: relative;
@@ -167,22 +139,46 @@ code { font-size: 0.9em; }
   color: var(--paper);
 }
 .site-footer a { color: #DF9A73; }
-.footer-grid { display: grid; gap: 18px; }
-.footer-word { width: min(100%, 280px); height: auto; }
-.site-footer nav { display: flex; flex-wrap: wrap; gap: 8px 16px; }
-.site-footer nav a {
+/* Footer: mobile first, 12-column grid, centered. Breakpoints 640 and 1024. */
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px 12px;
+  justify-items: center;
+  text-align: center;
+}
+.footer-grid > * { grid-column: 1 / -1; width: 100%; margin: 0; }
+.footer-brand { display: grid; gap: 12px; justify-items: center; }
+.footer-word { width: min(100%, 280px); height: auto; margin: 0 auto; }
+.footer-tagline { margin: 0; max-width: 32ch; }
+.footer-nav {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 12px;
+}
+.site-footer .footer-nav a {
   min-height: 48px;
-  min-width: 48px;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 8px;
+  text-align: center;
 }
-.footer-credit { margin: 0; }
-.footer-credit a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 48px;
-  min-width: 48px;
+.footer-nap { display: grid; justify-items: center; gap: 0; }
+.footer-nap > a, .footer-nap > span { display: flex; align-items: center; justify-content: center; min-height: 48px; padding: 0; margin: 0; line-height: 1.4; }
+.footer-nap > span a { display: inline; min-height: 0; line-height: inherit; padding: 0; margin: 0; }
+.footer-legal { display: grid; gap: 0; justify-items: center; border-top: 1px solid rgba(244, 240, 232, 0.18); padding-top: 12px; }
+.footer-legal p { margin: 0; }
+.footer-credit a { display: inline-flex; align-items: center; min-height: 48px; min-width: 48px; }
+@media (min-width: 640px) {
+  .footer-nav { grid-template-columns: repeat(3, 1fr); }
+  .footer-nap { grid-template-columns: repeat(2, auto); justify-content: center; column-gap: 32px; }
+  .footer-nap > * { white-space: normal; }
+  .footer-legal { grid-template-columns: auto auto; justify-content: center; column-gap: 32px; align-items: center; }
+}
+@media (min-width: 1024px) {
+  .footer-nav { grid-template-columns: repeat(5, 1fr); }
+  .footer-nap { grid-template-columns: repeat(4, auto); column-gap: 28px; }
 }
 
 .measure {
@@ -369,8 +365,8 @@ main { display: block; }
 }
 @media (min-width: 760px) and (max-width: 1199px) and (orientation: portrait) {
   .hero-home {
-    min-height: min(calc(100svh - var(--header-h, 64px) - 73px), 1100px);
-    height: min(calc(100svh - var(--header-h, 64px) - 73px), 1100px);
+    min-height: min(calc(100svh - var(--header-h, 64px) - 24px), 1100px);
+    height: min(calc(100svh - var(--header-h, 64px) - 24px), 1100px);
   }
   .hero-layer-far {
     top: 0;
@@ -456,8 +452,6 @@ main { display: block; }
   background: rgba(0, 0, 0, 0.35);
   max-width: 36rem;
 }
-.review-note { display: none; }
-body.review-mode .review-note { display: block; margin: 0 0 12px; }
 .chip-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 16px; }
 .supply-chip {
   display: inline-flex;
@@ -826,8 +820,6 @@ body[data-page="about"] { background: #1A1916; }
 @media (min-width: 720px) {
   .product-layout { grid-template-columns: 1.1fr 0.9fr; align-items: start; }
   .split { grid-template-columns: 1fr 1fr; }
-  .footer-grid { grid-template-columns: 1.2fr 1fr; }
-  .footer-credit { grid-column: 1 / -1; }
   .age-actions { flex-direction: row; }
   .age-actions .btn { flex: 1; width: auto; }
 }
@@ -911,7 +903,6 @@ body[data-page="about"] { background: #1A1916; }
   .line-amount { padding: 0 16px 16px; }
 }
 @media (max-width: 390px) {
-  .proto-banner { gap: 8px; padding-inline: 10px; }
   .site-bar { width: min(1640px, calc(100% - 16px)); }
 }
 
@@ -1125,7 +1116,7 @@ html.gsap-motion .reveal {
 .legal h3 { margin-top: 24px; font-size: 1.25rem; }
 .legal-dates { font-size: 1rem; opacity: 0.8; }
 .legal-list { padding-left: 1.2em; display: grid; gap: 10px; }
-.legal a, .contact-nap a, .footer-nap a { display: inline-block; min-height: 48px; line-height: 48px; }
+.legal a, .contact-nap a { display: inline-block; min-height: 48px; line-height: 48px; }
 .legal p a, .legal li a { min-height: 0; line-height: inherit; padding: 12px 0; margin: -12px 0; }
 .on-page { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
 .on-page a { display: inline-flex; align-items: center; min-height: 48px; padding: 0 16px; border: 1px solid rgba(244, 240, 232, 0.4); text-decoration: none; }
@@ -1144,9 +1135,8 @@ html.gsap-motion .reveal {
 .faq details[open] summary::after { content: "−"; }
 .faq details p { padding: 0 16px 16px; margin: 0; }
 .contact-nap { list-style: none; padding: 0; margin: 0 0 16px; font-size: 1.0625rem; }
-.footer-tagline { font-size: 1rem; color: #F7BA96; }
-.footer-nap { font-size: 1rem; line-height: 1.6; }
-.footer-nap a { min-height: 0; line-height: inherit; padding: 12px 0; margin: -12px 0; }
+.footer-tagline, .footer-nap { font-size: 1rem; line-height: 1.6; }
+.footer-tagline { color: #F7BA96; }
 label.check.agree { align-items: flex-start; font-size: 1rem; line-height: 1.5; margin: 12px 0; }
 label.check.agree a { display: inline; }
 @media (min-width: 640px) {

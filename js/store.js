@@ -80,7 +80,7 @@
     var id = new URLSearchParams(location.search).get("id");
     var product = window.AD.productById(id);
     if (!product) {
-      root.innerHTML = "<h1>Product not in this prototype</h1><p>The items in this prototype are the Live the Creed medical kits in the shop.</p><p><a class=\"btn\" href=\"shop.html\">Back to the shop</a></p>";
+      root.innerHTML = "<h1>Product not found</h1><p>The items available are the Live the Creed medical kits in the shop.</p><p><a class=\"btn\" href=\"shop.html\">Back to the shop</a></p>";
       return;
     }
     document.title = window.AD.displayName(product) + " — Aumakua Defense";
@@ -230,7 +230,7 @@
     }).join("");
     root.innerHTML =
       "<h1>Checkout</h1>" +
-      '<p class="pay-note">Prototype — no payment is processed.</p>' +
+      '<p class="pay-note">No payment is processed.</p>' +
       '<form id="checkout-form" class="checkout-grid" novalidate>' +
         "<fieldset><legend>Contact</legend>" +
           '<label>Name <input name="name" required autocomplete="name"></label>' +
@@ -249,7 +249,7 @@
           "</div>" +
         "</fieldset>" +
         "<fieldset><legend>Payment</legend>" +
-          '<p class="pay-note">Prototype — no payment is processed. Card fields are not saved and are not sent to a gateway.</p>' +
+          '<p class="pay-note">No payment is processed. Card fields are not saved and are not sent to a gateway.</p>' +
           '<label>Name on card <input name="cardname" required autocomplete="cc-name"></label>' +
           '<label>Card number <input name="cardnumber" required inputmode="numeric" autocomplete="cc-number" maxlength="23"></label>' +
           '<div class="split">' +
@@ -359,7 +359,7 @@
       '<p class="kicker">Sample only</p>' +
       "<h1>Sample order " + esc(order.number) + "</h1>" +
       "<p><strong>This is a sample confirmation. No order was placed and no payment was processed.</strong></p>" +
-      "<p>Prototype — no payment is processed.</p>" +
+      "<p>No payment is processed.</p>" +
       "<h2>Contact</h2><p>" + esc(order.contact.name) + "<br>" + esc(order.contact.email) + "<br>" + esc(order.contact.phone) + "</p>" +
       "<h2>Ship to</h2><p>" + esc(order.shipping.address) + "<br>" + esc(order.shipping.city) + ", " + esc(order.shipping.region) + " " + esc(order.shipping.postal) + "<br>" + esc(order.shipping.country) + "</p>" +
       "<h2>Items</h2><ul>" + rows + "</ul>" +
@@ -377,7 +377,7 @@
         return;
       }
       var status = document.getElementById("contact-status");
-      status.textContent = "Prototype — this form is not sent. Nothing was delivered.";
+      status.textContent = "This form is not sent. Nothing was delivered.";
       form.reset();
     });
   }
