@@ -21,3 +21,6 @@ License pages: [Unsplash License](https://unsplash.com/license), [Pexels License
 | `light-*.webp` | Tactical Flashlight (Example) card | Fortal Fototeca | https://www.pexels.com/photo/black-flashlight-on-brown-wooden-table-12348706/ | Pexels License |
 | `scope-*.webp` | Rifle Scope (Example) card, 1280×1600 crop of a 5472×3648 original, not upscaled | Thomas Tucker | https://unsplash.com/photos/rules-of-third-photography-of-sniper-rifle-2q3RH6grop4 | Unsplash License |
 | `carrier-*.webp` | Plate Carrier (Example) card, 3648×4560 crop of a 3648×5472 original, not upscaled | Taiwangun | https://unsplash.com/photos/soldier-wearing-camouflage-tactical-vest-tkliSKOO9Ck | Unsplash License |
+
+## Client product photos (Nov 2026)
+EDC Pocket Trauma Kit, Responder IFAK, and Direct Action Tourniquet Kit photos are Live the Creed product images supplied by the client in the shared Drive folder (Products / Live the Creed). Resized to 640 and 1280 px WebP.

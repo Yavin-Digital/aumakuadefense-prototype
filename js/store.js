@@ -1,5 +1,5 @@
 /* Shop, product, cart, checkout, and the contact form.
-   Totals stay blank until the client supplies prices. */
+   Prices are the listed MAP from the client's product list. */
 (function () {
   function esc(value) {
     return String(value == null ? "" : value).replace(/[&<>"']/g, function (ch) {
@@ -16,13 +16,29 @@
     return window.AD.tileHtml(product, opts);
   }
 
-  function moneyDash() {
-    return '<span aria-label="Price not supplied">—</span>';
+  function money(n) {
+    return "$" + Number(n).toFixed(2);
+  }
+
+  function linePrice(line) {
+    var product = window.AD.productById(line.productId);
+    var price = null;
+    if (product) {
+      price = product.price;
+      product.variants.forEach(function (item) {
+        if (item.id === line.variantId && item.price != null) price = item.price;
+      });
+    }
+    return price == null ? 0 : price * line.qty;
+  }
+
+  function subtotal(lines) {
+    return lines.reduce(function (sum, line) { return sum + linePrice(line); }, 0);
   }
 
   function renderCatalog(root, list) {
     if (!list.length) {
-      root.innerHTML = "<p>No products match this filter. The catalog is the four accessory slugs from the store sitemap.</p>";
+      root.innerHTML = "<p>No products match this filter. Try another filter or view all items.</p>";
       return;
     }
     root.innerHTML = list.map(tile).join("");
@@ -37,18 +53,18 @@
   function pageCategory() {
     var root = document.getElementById("catalog");
     if (!root) return;
-    var id = new URLSearchParams(location.search).get("c") || "accessories";
+    var id = new URLSearchParams(location.search).get("c") || "medical-kits";
     var title = document.getElementById("category-title");
     var list = window.AD.products;
-    if (id === "accessories") {
-      if (title) title.textContent = "Accessories";
-      document.title = "Accessories — Aumakua Defense";
-    } else if (window.AD.tagName(id) && ["optics", "holsters", "carriers", "lights"].indexOf(id) !== -1) {
+    if (id === "medical-kits") {
+      if (title) title.textContent = "Medical Kits";
+      document.title = "Medical Kits — Aumakua Defense";
+    } else if (window.AD.tagName(id) && ["trauma-kits", "tourniquets"].indexOf(id) !== -1) {
       if (title) title.textContent = window.AD.tagName(id);
       document.title = window.AD.tagName(id) + " — Aumakua Defense";
       list = window.AD.products.filter(function (p) { return p.tags.indexOf(id) !== -1; });
     } else {
-      if (title) title.textContent = "Accessories";
+      if (title) title.textContent = "Medical Kits";
       list = window.AD.products;
     }
     document.querySelectorAll("[data-filter]").forEach(function (link) {
@@ -64,7 +80,7 @@
     var id = new URLSearchParams(location.search).get("id");
     var product = window.AD.productById(id);
     if (!product) {
-      root.innerHTML = "<h1>Product not in this prototype</h1><p>The known slugs are the four accessories in the shop.</p><p><a class=\"btn\" href=\"shop.html\">Back to the shop</a></p>";
+      root.innerHTML = "<h1>Product not in this prototype</h1><p>The items in this prototype are the Live the Creed medical kits in the shop.</p><p><a class=\"btn\" href=\"shop.html\">Back to the shop</a></p>";
       return;
     }
     document.title = window.AD.displayName(product) + " — Aumakua Defense";
@@ -77,16 +93,16 @@
     }).join("");
     root.innerHTML =
       '<div class="page">' +
-        '<p class="crumb"><a href="shop.html">Shop</a> / <a href="category.html?c=accessories">Accessories</a></p>' +
+        '<p class="crumb"><a href="shop.html">Shop</a> / <a href="category.html?c=medical-kits">Medical Kits</a></p>' +
         '<div class="product-layout">' +
           '<div class="gallery">' +
-            photoSlot("PRODUCT PHOTO — client to supply", product.image, { eager: true, sizes: "(min-width: 720px) 72vw, 92vw" }) +
+            photoSlot("Product photo", product.image, { eager: true, sizes: "(min-width: 720px) 72vw, 92vw" }) +
           "</div>" +
           '<div class="product-buy">' +
-            '<p class="kicker">Accessories</p>' +
+            '<p class="kicker">' + esc(product.brand) + "</p>" +
             '<h1>' + esc(window.AD.displayName(product)) + "</h1>" +
             '<p class="price-line">' + esc(product.priceLabel) + "</p>" +
-            '<p class="chip-row"><span class="supply-chip">Description — client to supply</span></p>' +
+            '<p>' + esc(product.description) + "</p>" +
             '<form class="buy-form" id="buy-form">' +
               '<label for="variant">Variant <select id="variant">' + options + "</select></label>" +
               '<label for="qty">Quantity <input id="qty" type="number" min="1" max="99" value="1" inputmode="numeric"></label>' +
@@ -99,8 +115,7 @@
       '<section class="room room-paper reveal">' +
         '<div class="measure">' +
           '<h2><span class="metal">Specs</span></h2>' +
-          '<p class="chip-row"><span class="supply-chip">Specs — client to supply</span></p>' +
-          '<p class="review-note">Example item: a generic non-FFL accessory standing in until the client supplies real products. Name, price, and photo are examples only.</p>' +
+          '<p>' + esc(product.specs) + "</p>" +
         "</div>" +
       "</section>" +
       '<section class="room room-ink reveal"><div class="room-inner"><h2><span class="metal">Related</span></h2><div class="catalog catalog-related">' + related + "</div></div></section>";
@@ -109,9 +124,11 @@
       "@context": "https://schema.org",
       "@type": "Product",
       "name": window.AD.displayName(product),
-      "sku": product.slug,
-      "description": "Product details have not been supplied. Price is not published.",
-      "category": "Accessories"
+      "sku": product.variants[0].sku,
+      "description": product.description,
+      "brand": { "@type": "Brand", "name": product.brand },
+      "offers": { "@type": "Offer", "priceCurrency": "USD", "price": product.price.toFixed(2) },
+      "category": "Medical Kits"
     };
     var script = document.createElement("script");
     script.type = "application/ld+json";
@@ -123,26 +140,26 @@
       var qty = document.getElementById("qty").value;
       var variantId = document.getElementById("variant").value || variant.id;
       window.ADCart.add(product.id, variantId, qty);
-      document.getElementById("added").textContent = "Added to the cart on this browser. Price is still not supplied.";
+      document.getElementById("added").textContent = "Added to the cart on this browser.";
     });
   }
 
   function lineView(line) {
     var product = window.AD.productById(line.productId);
     var name = product ? window.AD.displayName(product) : line.productId;
-    var variant = "Variant: client to supply";
+    var variant = "";
     if (product) {
       product.variants.forEach(function (item) {
         if (item.id === line.variantId) variant = item.name;
       });
     }
     return '<article class="cart-line" data-line="' + esc(line.id) + '">' +
-      photoSlot("PRODUCT PHOTO — client to supply", product && product.image, { sizes: "(max-width: 699px) 92vw, 140px" }) +
+      photoSlot("Product photo", product && product.image, { sizes: "(max-width: 699px) 92vw, 140px" }) +
       '<div><h2><a href="product.html?id=' + esc(line.productId) + '">' + esc(name) + "</a></h2>" +
       "<p>" + esc(variant) + "</p>" +
       '<label>Quantity <input class="line-qty" type="number" min="1" max="99" value="' + esc(line.qty) + '" inputmode="numeric"></label> ' +
       '<button type="button" class="btn btn-line line-remove" aria-label="Remove ' + esc(name) + '">Remove</button></div>' +
-      '<p class="line-amount">' + moneyDash() + "</p></article>";
+      '<p class="line-amount">' + money(linePrice(line)) + "</p></article>";
   }
 
   function focusCart(root, restore) {
@@ -179,10 +196,9 @@
       '<div class="cart-lines">' + lines.map(lineView).join("") + "</div>" +
       '<aside class="summary order-summary">' +
         "<h2>Order summary</h2>" +
-        "<p>Subtotal " + moneyDash() + "</p>" +
+        "<p>Subtotal " + money(subtotal(lines)) + "</p>" +
         "<p>Tax calculated at checkout</p>" +
         "<p>Shipping calculated at checkout</p>" +
-        "<p><strong>Totals calculated once pricing is supplied.</strong></p>" +
         '<a class="btn" href="checkout.html">Checkout</a>' +
       "</aside>";
     root.querySelectorAll(".cart-line").forEach(function (row) {
@@ -210,7 +226,7 @@
     var rows = lines.map(function (line) {
       var product = window.AD.productById(line.productId);
       var name = product ? window.AD.displayName(product) : line.productId;
-      return "<li>" + esc(name) + " × " + esc(line.qty) + " <span>" + moneyDash() + "</span></li>";
+      return "<li>" + esc(name) + " × " + esc(line.qty) + " <span>" + money(linePrice(line)) + "</span></li>";
     }).join("");
     root.innerHTML =
       "<h1>Checkout</h1>" +
@@ -243,10 +259,9 @@
         "</fieldset>" +
         '<aside class="summary order-summary">' +
           "<h2>Order summary</h2><ul>" + rows + "</ul>" +
-          "<p>Subtotal " + moneyDash() + "</p>" +
+          "<p>Subtotal " + money(subtotal(lines)) + "</p>" +
           "<p>Tax calculated at checkout</p>" +
           "<p>Shipping calculated at checkout</p>" +
-          "<p><strong>Totals calculated once pricing is supplied.</strong></p>" +
           '<label class="check agree"><input type="checkbox" name="agree" required> <span>I have read and agree to the Aumakua Defense <a href="safety.html">Product Safety &amp; Checkout Disclaimer</a>, <a href="terms.html">Terms &amp; Conditions</a>, and <a href="shipping.html">Shipping/FFL Policy</a>. I certify that I am of legal age to purchase the items in my cart and am legally permitted to possess them in my jurisdiction.</span></label>' +
           '<button class="btn" type="submit">Place order</button>' +
           '<p id="checkout-status" class="form-status" role="status"></p>' +
@@ -312,6 +327,7 @@
             productId: line.productId,
             variantId: line.variantId,
             qty: line.qty,
+            amount: linePrice(line),
             name: product ? window.AD.displayName(product) : line.productId
           };
         })
@@ -337,7 +353,7 @@
       return;
     }
     var rows = (order.lines || []).map(function (line) {
-      return "<li>" + esc(line.name) + " × " + esc(line.qty) + " " + moneyDash() + "</li>";
+      return "<li>" + esc(line.name) + " × " + esc(line.qty) + " " + money(line.amount || 0) + "</li>";
     }).join("");
     root.innerHTML =
       '<p class="kicker">Sample only</p>' +
@@ -347,7 +363,7 @@
       "<h2>Contact</h2><p>" + esc(order.contact.name) + "<br>" + esc(order.contact.email) + "<br>" + esc(order.contact.phone) + "</p>" +
       "<h2>Ship to</h2><p>" + esc(order.shipping.address) + "<br>" + esc(order.shipping.city) + ", " + esc(order.shipping.region) + " " + esc(order.shipping.postal) + "<br>" + esc(order.shipping.country) + "</p>" +
       "<h2>Items</h2><ul>" + rows + "</ul>" +
-      "<p>Totals calculated once pricing is supplied.</p>" +
+      "<p>Subtotal " + money((order.lines || []).reduce(function (sum, line) { return sum + (line.amount || 0); }, 0)) + "</p>" +
       '<p><a class="btn" href="shop.html">Back to the shop</a></p>';
   }
 
