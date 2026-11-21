@@ -40,4 +40,4 @@ Static admin pages at `/admin/` (sign-in at `admin/index.html`), sample data onl
 
 Mike supplied final client copy, used verbatim: About, Meet the Founder (`founder.html`), Privacy, Terms, Shipping/FFL + Refund & Return (`shipping.html`; `returns.html` forwards to `shipping.html#refunds`), Product Safety & Checkout Disclaimer (`safety.html`), FAQ (`faq.html`). Effective/Last Updated 11/01/2026. Checkout has an unchecked required agreement checkbox (stub). No founder photo supplied; the mark stands in.
 
-Open flags: FAQ reads "(50 average)" with no $; phone 425 (WA) area code with a Phoenix address; legal copy covers firearms/ammo sales while launch catalog is non-FFL accessories only.
+Open flags: FAQ now reads "($50 average)" (the client doc omitted the $); phone 425 (WA) area code with a Phoenix address; legal copy covers firearms/ammo sales while launch catalog is non-FFL accessories only.
