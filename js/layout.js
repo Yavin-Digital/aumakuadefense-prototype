@@ -1,4 +1,4 @@
-/* Shared review banner, header, footer, and simulated 21+ age gate. */
+/* Shared header, footer, and simulated 21+ age gate. */
 (function () {
   var page = document.body.getAttribute("data-page") || "";
 
@@ -26,14 +26,6 @@
     return '<a href="' + item[1] + '"' + current + '>' + item[2] + "</a>";
   }).join("");
 
-  var banner = document.createElement("div");
-  banner.className = "proto-banner";
-  banner.setAttribute("role", "note");
-  banner.innerHTML = '<p class="proto-banner-text">Prototype</p>' +
-    '<a href="performance.html">Performance</a>' +
-    '<a href="compare/AumakuaDefense-SEO-AEO-Compare.html">SEO / AEO</a>' +
-    '<a href="admin/index.html">Admin</a>';
-
   var header = document.createElement("header");
   header.className = "site-header";
   header.innerHTML =
@@ -51,11 +43,11 @@
   footer.className = "site-footer";
   footer.innerHTML =
     '<div class="measure footer-grid">' +
-      '<div><img class="footer-word" src="assets/logo/aumakua-wordmark-copper-2x.png" width="560" height="100" alt="Aumakua Defense">' +
-      '<p class="footer-tagline">Where ancient protection meets modern precision</p>' +
-      '<p class="footer-nap"><a href="mailto:info@aumakuadefense.com">info@aumakuadefense.com</a><br><a href="tel:+14253452727">425-345-2727</a><br>2501 W Behrend #E51, Phoenix, AZ 85027<br>FFL licenses: <a href="mailto:ffl@aumakuadefense.com">ffl@aumakuadefense.com</a></p>' +
-      '<p>Copyright © 2026 Aumakua Defense.</p></div>' +
-      '<nav aria-label="Footer">' +
+      '<div class="footer-brand">' +
+        '<img class="footer-word" src="assets/logo/aumakua-wordmark-copper-2x.png" width="560" height="100" alt="Aumakua Defense">' +
+        '<p class="footer-tagline">Where ancient protection meets modern precision</p>' +
+      "</div>" +
+      '<nav class="footer-nav" aria-label="Footer">' +
         '<a href="shop.html">Shop</a>' +
         '<a href="about.html">About</a>' +
         '<a href="founder.html">Meet our founder</a>' +
@@ -66,11 +58,12 @@
         '<a href="safety.html">Product safety</a>' +
         '<a href="privacy.html">Privacy policy</a>' +
         '<a href="terms.html">Terms &amp; conditions</a>' +
-        '<a href="brand.html">Brand standards</a>' +
-        '<a href="AumakuaDefense-Presentation.html">Presentation</a>' +
-        '<a href="admin/index.html">Admin</a>' +
       "</nav>" +
-      '<p class="footer-credit">Website by <a href="https://thetribemaker.com">The Tribe Maker</a>.</p>' +
+      '<p class="footer-nap"><a href="mailto:info@aumakuadefense.com">info@aumakuadefense.com</a><a href="tel:+14253452727">425-345-2727</a><span>2501 W Behrend #E51, Phoenix, AZ 85027</span><span>FFL licenses: <a href="mailto:ffl@aumakuadefense.com">ffl@aumakuadefense.com</a></span></p>' +
+      '<div class="footer-legal">' +
+        '<p>Copyright © 2026 Aumakua Defense.</p>' +
+        '<p class="footer-credit">Website by <a href="https://thetribemaker.com">The Tribe Maker</a>.</p>' +
+      "</div>" +
     "</div>";
 
   var main = document.getElementById("main");
@@ -81,7 +74,6 @@
   skip.textContent = "Skip to content";
   document.body.insertBefore(skip, document.body.firstChild);
   if (main) {
-    main.insertAdjacentElement("beforebegin", banner);
     main.insertAdjacentElement("beforebegin", header);
     if (page !== "deck") {
       var band = document.createElement("div");
@@ -91,7 +83,6 @@
     }
     main.insertAdjacentElement("afterend", footer);
   } else {
-    document.body.appendChild(banner);
     document.body.appendChild(header);
     document.body.appendChild(footer);
   }
@@ -117,7 +108,6 @@
   });
 
   var params = new URLSearchParams(location.search);
-  if (params.get("review") === "1") document.body.classList.add("review-mode");
   if (params.get("resetage") === "1") localStorage.removeItem("ad_age_ok");
 
   var gate = document.createElement("div");
@@ -137,7 +127,7 @@
           '<button type="button" class="btn" id="age-yes">I am 21 or older</button>' +
           '<button type="button" class="btn btn-line" id="age-no">I am under 21</button>' +
         "</div>" +
-        '<p class="age-note">Prototype — simulated age verification. No age is stored beyond this browser.</p>' +
+        '<p class="age-note">Simulated age verification. No age is stored beyond this browser.</p>' +
       "</div>";
     document.getElementById("age-yes").addEventListener("click", function () {
       localStorage.setItem("ad_age_ok", "1");
@@ -156,7 +146,7 @@
         '<div class="age-actions">' +
           '<button type="button" class="btn btn-line" id="age-back">Back to the age question</button>' +
         "</div>" +
-        '<p class="age-note">Prototype — simulated age verification.</p>' +
+        '<p class="age-note">Simulated age verification.</p>' +
       "</div>";
     document.getElementById("age-back").addEventListener("click", questionView);
     document.getElementById("age-back").focus();
@@ -202,7 +192,6 @@
   function openGate() {
     gate.hidden = false;
     document.body.classList.add("age-lock");
-    banner.inert = true;
     skip.inert = true;
     if (main) main.inert = true;
     header.inert = true;
@@ -215,7 +204,6 @@
   function closeGate() {
     gate.hidden = true;
     document.body.classList.remove("age-lock");
-    banner.inert = false;
     skip.inert = false;
     if (main) main.inert = false;
     header.inert = false;
