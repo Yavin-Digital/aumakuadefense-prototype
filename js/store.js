@@ -67,8 +67,9 @@
       if (title) title.textContent = "Medical Kits";
       list = window.AD.products;
     }
+    var current = ["trauma-kits", "tourniquets"].indexOf(id) !== -1 ? id : "all";
     document.querySelectorAll("[data-filter]").forEach(function (link) {
-      if (link.getAttribute("data-filter") === id) link.setAttribute("aria-current", "page");
+      if (link.getAttribute("data-filter") === current) link.setAttribute("aria-current", "page");
       else link.removeAttribute("aria-current");
     });
     renderCatalog(root, list);
@@ -154,7 +155,7 @@
       });
     }
     return '<article class="cart-line" data-line="' + esc(line.id) + '">' +
-      photoSlot("Product photo", product && product.image, { sizes: "(max-width: 699px) 92vw, 140px" }) +
+      photoSlot("Product photo", product && product.image, { sizes: "(max-width: 719.98px) 92vw, 140px" }) +
       '<div><h2><a href="product.html?id=' + esc(line.productId) + '">' + esc(name) + "</a></h2>" +
       "<p>" + esc(variant) + "</p>" +
       '<label>Quantity <input class="line-qty" type="number" min="1" max="99" value="' + esc(line.qty) + '" inputmode="numeric"></label> ' +
@@ -182,9 +183,22 @@
     }
   }
 
+  function cartSay(root, text) {
+    var live = document.getElementById("cart-live");
+    if (!live) {
+      live = document.createElement("p");
+      live.id = "cart-live";
+      live.className = "visually-hidden";
+      live.setAttribute("role", "status");
+      root.insertAdjacentElement("afterend", live);
+    }
+    live.textContent = text || "";
+  }
+
   function pageCart(restore) {
     var root = document.getElementById("cart-root");
     if (!root) return;
+    cartSay(root, restore && restore.say);
     var lines = window.ADCart.lines();
     if (!lines.length) {
       root.innerHTML = "<h1>Cart</h1><p>The cart is empty.</p><p><a class=\"btn\" href=\"shop.html\">View the shop</a></p>";
@@ -205,11 +219,14 @@
       var id = row.getAttribute("data-line");
       row.querySelector(".line-qty").addEventListener("change", function (event) {
         window.ADCart.setQty(id, event.target.value);
-        pageCart({ lineId: id });
+        var line = window.ADCart.lines().filter(function (item) { return item.id === id; })[0];
+        var label = row.querySelector("h2").textContent;
+        pageCart({ lineId: id, say: "Quantity updated: " + label + ", " + (line ? line.qty : "") + "." });
       });
       row.querySelector(".line-remove").addEventListener("click", function () {
+        var label = row.querySelector("h2").textContent;
         window.ADCart.remove(id);
-        pageCart({ removed: true });
+        pageCart({ removed: true, say: "Removed " + label + " from the cart." });
       });
     });
     focusCart(root, restore);
@@ -262,7 +279,8 @@
           "<p>Subtotal " + money(subtotal(lines)) + "</p>" +
           "<p>Tax calculated at checkout</p>" +
           "<p>Shipping calculated at checkout</p>" +
-          '<label class="check agree"><input type="checkbox" name="agree" required> <span>I have read and agree to the Aumakua Defense <a href="safety.html">Product Safety &amp; Checkout Disclaimer</a>, <a href="terms.html">Terms &amp; Conditions</a>, and <a href="shipping.html">Shipping/FFL Policy</a>. I certify that I am of legal age to purchase the items in my cart and am legally permitted to possess them in my jurisdiction.</span></label>' +
+          '<ul class="agree-links" aria-label="Checkout policies"><li><a href="safety.html">Product Safety &amp; Checkout Disclaimer</a></li><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="shipping.html">Shipping/FFL Policy</a></li></ul>' +
+          '<label class="check agree"><input type="checkbox" name="agree" required> <span>I have read and agree to the Aumakua Defense Product Safety &amp; Checkout Disclaimer, Terms &amp; Conditions, and Shipping/FFL Policy. I certify that I am of legal age to purchase the items in my cart and am legally permitted to possess them in my jurisdiction.</span></label>' +
           '<button class="btn" type="submit">Place order</button>' +
           '<p id="checkout-status" class="form-status" role="status"></p>' +
         "</aside>" +
@@ -280,6 +298,8 @@
           var msg = document.createElement("span");
           msg.id = id;
           msg.className = "field-error";
+          /* Keep the message out of the label's accessible name; aria-describedby still reads it. */
+          msg.setAttribute("aria-hidden", "true");
           msg.textContent = input.validationMessage || "This field needs attention.";
           input.setAttribute("aria-describedby", id);
           input.insertAdjacentElement("afterend", msg);
