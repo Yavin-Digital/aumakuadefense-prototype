@@ -72,6 +72,8 @@ code { font-size: 0.9em; }
   min-width: 48px;
 }
 .logo-mark { height: 44px; width: auto; }
+/* Keep the logo and cart unsquashed when a wider fallback font fills the bar (display=optional first visit). */
+.logo, .cart-link { flex-shrink: 0; }
 .logo-word { display: none; height: 18px; width: auto; }
 .site-nav {
   display: flex;
@@ -112,6 +114,10 @@ code { font-size: 0.9em; }
   fill: none;
   stroke: currentColor;
   stroke-width: 1.6;
+}
+@media (min-width: 720px) and (max-width: 1099.98px) {
+  .site-nav { gap: 0; }
+  .site-nav a { padding-inline: 8px; letter-spacing: 0.1em; }
 }
 #cart-count { font-variant-numeric: tabular-nums; }
 .nav-toggle {
@@ -270,6 +276,11 @@ main { display: block; }
 .hero-home h1 span:nth-child(2) { animation-delay: 90ms; }
 .hero-home h1 span:nth-child(3) { animation-delay: 180ms; }
 .hero-home h1 span:nth-child(4) { animation-delay: 270ms; }
+/* First-visit fallback fonts (display=optional) are wider than Saira Condensed:
+   let a hero line wrap on phones instead of running off-screen. */
+@media (max-width: 639px) {
+  .hero-home h1 span { white-space: normal; }
+}
 .hero-mark { min-width: 0; overflow: hidden; }
 .mark-frame {
   position: relative;
