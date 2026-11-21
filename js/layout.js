@@ -1,4 +1,4 @@
-/* Shared header, footer, and simulated 21+ age gate. */
+/* Enhances the static header and footer (menu, cart count) and runs the simulated 21+ age gate. */
 (function () {
   var page = document.body.getAttribute("data-page") || "";
 
@@ -12,80 +12,11 @@
     return '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>';
   }
 
-  var links = [
-    ["home", "index.html", "Home"],
-    ["shop", "shop.html", "Shop"],
-    ["about", "about.html", "About"],
-    ["founder", "founder.html", "Founder"],
-    ["faq", "faq.html", "FAQ"],
-    ["contact", "contact.html", "Contact"]
-  ];
-
-  var nav = links.map(function (item) {
-    var current = page === item[0] || (page === "category" && item[0] === "shop") || (page === "product" && item[0] === "shop") ? ' aria-current="page"' : "";
-    return '<a href="' + item[1] + '"' + current + '>' + item[2] + "</a>";
-  }).join("");
-
-  var header = document.createElement("header");
-  header.className = "site-header";
-  header.innerHTML =
-    '<div class="site-bar">' +
-      '<a class="logo" href="index.html">' +
-        '<img class="logo-mark" src="assets/logo/aumakua-mark-copper-320.webp" width="1932" height="1220" alt="Aumakua Defense">' +
-        '<img class="logo-word" src="assets/logo/aumakua-wordmark-copper-2x.png" alt="">' +
-      "</a>" +
-      '<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">' + icon("menu") + '<span>Menu</span></button>' +
-      '<nav id="site-nav" class="site-nav">' + nav + "</nav>" +
-      '<a class="cart-link" href="cart.html">' + icon("cart") + '<span>Cart</span> <span id="cart-count">0</span></a>' +
-    "</div>";
-
-  var footer = document.createElement("footer");
-  footer.className = "site-footer";
-  footer.innerHTML =
-    '<div class="measure footer-grid">' +
-      '<div class="footer-brand">' +
-        '<img class="footer-word" src="assets/logo/aumakua-wordmark-copper-2x.png" width="560" height="100" alt="Aumakua Defense">' +
-        '<p class="footer-tagline">Where ancient protection meets modern precision</p>' +
-      "</div>" +
-      '<nav class="footer-nav" aria-label="Footer">' +
-        '<a href="shop.html">Shop</a>' +
-        '<a href="about.html">About</a>' +
-        '<a href="founder.html">Meet our founder</a>' +
-        '<a href="faq.html">FAQ</a>' +
-        '<a href="contact.html">Contact</a>' +
-        '<a href="shipping.html">Shipping &amp; FFL</a>' +
-        '<a href="shipping.html#refunds">Refunds &amp; returns</a>' +
-        '<a href="safety.html">Product safety</a>' +
-        '<a href="privacy.html">Privacy policy</a>' +
-        '<a href="terms.html">Terms &amp; conditions</a>' +
-      "</nav>" +
-      '<p class="footer-nap"><a href="mailto:info@aumakuadefense.com">info@aumakuadefense.com</a><a href="tel:+14253452727">425-345-2727</a><span>2501 W Behrend #E51, Phoenix, AZ 85027</span><span>FFL licenses: <a href="mailto:ffl@aumakuadefense.com">ffl@aumakuadefense.com</a></span></p>' +
-      '<div class="footer-legal">' +
-        '<p>Copyright © 2026 Aumakua Defense.</p>' +
-        '<p class="footer-credit">Website by <a href="https://thetribemaker.com">The Tribe Maker</a>.</p>' +
-      "</div>" +
-    "</div>";
-
+  var header = document.querySelector(".site-header");
+  var footer = document.querySelector(".site-footer");
   var main = document.getElementById("main");
-  var skip = document.createElement("a");
-  skip.id = "skip";
-  skip.className = "skip";
-  skip.href = "#main";
-  skip.textContent = "Skip to content";
-  document.body.insertBefore(skip, document.body.firstChild);
-  if (main) {
-    main.insertAdjacentElement("beforebegin", header);
-    if (page !== "deck") {
-      var band = document.createElement("div");
-      band.className = "weave-band";
-      band.setAttribute("aria-hidden", "true");
-      main.insertAdjacentElement("beforebegin", band);
-    }
-    main.insertAdjacentElement("afterend", footer);
-  } else {
-    document.body.appendChild(header);
-    document.body.appendChild(footer);
-  }
+  var skip = document.getElementById("skip");
+  if (!header || !footer || !skip) return;
 
   function paintCount() {
     var el = document.getElementById("cart-count");
@@ -95,17 +26,46 @@
   document.addEventListener("ad:cart", paintCount);
 
   var toggle = header.querySelector(".nav-toggle");
-  toggle.addEventListener("click", function () {
-    var open = header.classList.toggle("nav-open");
+  var navLinks = header.querySelectorAll("#site-nav a");
+  function setNav(open, returnFocus) {
+    header.classList.toggle("nav-open", open);
     toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    document.documentElement.classList.toggle("nav-lock", open);
+    if (open && navLinks.length) navLinks[0].focus();
+    else if (!open && returnFocus) toggle.focus();
+  }
+  toggle.addEventListener("click", function () {
+    setNav(!header.classList.contains("nav-open"), false);
   });
   document.addEventListener("keydown", function (event) {
-    if (event.key !== "Escape" || !header.classList.contains("nav-open")) return;
+    if (!header.classList.contains("nav-open")) return;
     if (gate && !gate.hidden) return;
-    header.classList.remove("nav-open");
-    toggle.setAttribute("aria-expanded", "false");
-    toggle.focus();
+    if (event.key === "Escape") {
+      setNav(false, true);
+      return;
+    }
+    if (event.key !== "Tab" || !navLinks.length) return;
+    var last = navLinks[navLinks.length - 1];
+    if (event.shiftKey && document.activeElement === toggle) {
+      event.preventDefault();
+      last.focus();
+    } else if (event.shiftKey && document.activeElement === navLinks[0]) {
+      event.preventDefault();
+      toggle.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      toggle.focus();
+    }
   });
+  document.addEventListener("click", function (event) {
+    if (header.classList.contains("nav-open") && !header.contains(event.target)) setNav(false, false);
+  });
+  if (window.matchMedia) {
+    var wide = window.matchMedia("(min-width: 720px)");
+    var onWide = function () { if (wide.matches && header.classList.contains("nav-open")) setNav(false, false); };
+    if (wide.addEventListener) wide.addEventListener("change", onWide);
+    else if (wide.addListener) wide.addListener(onWide);
+  }
 
   var params = new URLSearchParams(location.search);
   if (params.get("resetage") === "1") localStorage.removeItem("ad_age_ok");
@@ -191,7 +151,7 @@
 
   function openGate() {
     gate.hidden = false;
-    document.body.classList.add("age-lock");
+    document.documentElement.classList.add("age-lock");
     skip.inert = true;
     if (main) main.inert = true;
     header.inert = true;
@@ -203,7 +163,7 @@
 
   function closeGate() {
     gate.hidden = true;
-    document.body.classList.remove("age-lock");
+    document.documentElement.classList.remove("age-lock");
     skip.inert = false;
     if (main) main.inert = false;
     header.inert = false;

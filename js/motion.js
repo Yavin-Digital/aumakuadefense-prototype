@@ -110,7 +110,7 @@
     if (!hero || !far) return;
     var scheduled = false;
     function portraitTablet() {
-      return window.matchMedia("(min-width: 760px) and (max-width: 1199px) and (orientation: portrait)").matches;
+      return window.matchMedia("(min-width: 760px) and (max-width: 1199.98px) and (orientation: portrait)").matches;
     }
     function wideLandscape() {
       return window.matchMedia("(min-width: 1600px) and (orientation: landscape)").matches;
