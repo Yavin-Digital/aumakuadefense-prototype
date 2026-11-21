@@ -1,7 +1,7 @@
 /* Aumakua Defense. Military green, ink, and paper rooms. Copper jewelry. */
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: var(--header-h, 64px); }
+html { scroll-behavior: smooth; scroll-padding-top: 16px; }
 body {
   margin: 0;
   background: var(--brand);
@@ -1173,3 +1173,18 @@ label.check.agree { align-items: flex-start; font-size: 1.25rem; line-height: 1.
 .product-tile, .built-card { text-align: center; }
 
 .footer-nap { overflow-wrap: anywhere; }
+
+/* No-JS: the Menu button cannot open, so show the nav links in a wrapped row under the bar. */
+@media (max-width: 719.98px) {
+  html:not(.js) .site-header { height: auto; min-height: var(--header-h); }
+  html:not(.js) .site-bar { flex-wrap: wrap; min-height: var(--header-h); }
+  html:not(.js) .nav-toggle { display: none; }
+  html:not(.js) .cart-link { margin-left: auto; }
+  html:not(.js) .site-nav { display: flex; position: static; flex-direction: row; flex-wrap: wrap; justify-content: center; order: 3; width: 100%; padding: 0 0 8px; border-bottom: 0; }
+  html:not(.js) .site-nav a { justify-content: center; }
+}
+
+/* Pages that store.js fills: keep the static footer below the first screen until main is rendered, so it does not shift (CLS). */
+html.js body:is([data-page="shop"], [data-page="category"], [data-page="product"], [data-page="cart"], [data-page="checkout"], [data-page="confirm"]) main {
+  min-height: calc(100svh - var(--header-h) - 24px);
+}
