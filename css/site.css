@@ -317,6 +317,8 @@ main { display: block; }
   }
 }
 .hero-actions {
+  position: relative;
+  z-index: 1; /* keeps the buttons above the hero h1, whose tall line boxes overlapped the top of both buttons at 1440px and up (14px dead at 1920) */
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
