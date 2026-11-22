@@ -81,7 +81,7 @@
     var id = new URLSearchParams(location.search).get("id");
     var product = window.AD.productById(id);
     if (!product) {
-      root.innerHTML = "<h1>Product not found</h1><p>The items available are the Live the Creed medical kits in the shop.</p><p><a class=\"btn\" href=\"shop.html\">Back to the shop</a></p>";
+      root.innerHTML = "<div class=\"page\"><h1>Product not found</h1><p>The items available are the Live the Creed medical kits in the shop.</p><p><a class=\"btn\" href=\"shop.html\">Back to the shop</a></p></div>";
       return;
     }
     document.title = window.AD.displayName(product) + " — Aumakua Defense";
