@@ -4,6 +4,15 @@
    --brand, --ink, and --paper are proposed and need Mike's sign-off.
    Do not add a color here that brand.html does not list. */
 
+/* Self-hosted fonts (latin subset, SIL OFL). Size-adjusted local fallbacks keep the swap from shifting layout. */
+@font-face { font-family: "Barlow"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/barlow-400.woff2") format("woff2"); }
+@font-face { font-family: "Barlow"; font-style: normal; font-weight: 600; font-display: swap; src: url("../fonts/barlow-600.woff2") format("woff2"); }
+@font-face { font-family: "Saira Condensed"; font-style: normal; font-weight: 600; font-display: swap; src: url("../fonts/saira-condensed-600.woff2") format("woff2"); }
+@font-face { font-family: "Saira Condensed"; font-style: normal; font-weight: 700; font-display: swap; src: url("../fonts/saira-condensed-700.woff2") format("woff2"); }
+@font-face { font-family: "Barlow Fallback"; font-weight: 400; src: local("Arial"), local("Liberation Sans"), local("Helvetica"); size-adjust: 97.5%; ascent-override: 102.6%; descent-override: 20.5%; line-gap-override: 0%; }
+@font-face { font-family: "Barlow Fallback"; font-weight: 600; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("Helvetica Bold"); size-adjust: 91.7%; ascent-override: 109%; descent-override: 21.8%; line-gap-override: 0%; }
+@font-face { font-family: "Saira Fallback"; font-weight: 600 700; src: local("Arial Narrow Bold"), local("ArialNarrow-Bold"), local("Liberation Sans Narrow Bold"), local("Arial Bold"), local("Liberation Sans Bold"); size-adjust: 90.4%; ascent-override: 125.5%; descent-override: 48.5%; line-gap-override: 0%; }
+
 :root {
   --accent: #C07A5A;            /* copper mid, measured p50 */
   --copper-shadow: #673A27;     /* oxide / copper shadow, measured near p08 */
@@ -25,8 +34,8 @@
   --olive-wall: #7D7359;        /* brief sample of the mockup wall; not a room color */
   --olive-wall-alt: #8A795D;    /* brief sample of the mockup wall; not a room color */
 
-  --font-display: "Saira Condensed", "Arial Narrow", Impact, sans-serif;
-  --font-body: "Barlow", "Segoe UI", sans-serif;
+  --font-display: "Saira Condensed", "Saira Fallback", "Arial Narrow", Impact, sans-serif;
+  --font-body: "Barlow", "Barlow Fallback", "Segoe UI", sans-serif;
 
   --measure: 1040px;
   --header-h: 64px;
