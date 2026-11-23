@@ -1,6 +1,6 @@
 # Aumakua Defense project guide
 
-Phase 1 HTML prototype. Design source of truth for a later build on `app-shell-scaffold` and `@yavin/feature-ecomm-core`. Payments adapter is not chosen. Do not use the deprecated `ecomm-scaffold`.
+Phase 1 HTML prototype. Design source of truth for a later build on `app-shell-scaffold` and `@yavin/feature-ecomm-core`. Payment gateway is Stripe (Mike, 2026-11-23); the prototype calls no gateway. Modes and content ownership live in `SCOPE.md`. Do not use the deprecated `ecomm-scaffold`.
 
 ## Run
 
@@ -20,14 +20,11 @@ Hand-written HTML, CSS, and JavaScript. No framework and no build step.
 |---|---|
 | `js/site.js` | Products, category, tags, NAP |
 | `js/cart.js` | `localStorage` cart lines: `id`, `productId`, `variantId`, `qty` |
-| `js/layout.js` | Banner, header, footer, age gate |
+| `js/layout.js` | Enhances the static header and footer; age gate |
 | `js/store.js` | Shop, category, product, cart, checkout, contact form |
-| `css/tokens.css` | Colors and type from `brand.html` |
-| `brand.html` | Brand standards |
-| `assets/AumakuaDefense-Brand-Standards.pdf` | Letter PDF of the brand guide |
-| `AumakuaDefense-Presentation.html` | 9-slide deck |
+| `css/tokens.css` | Colors and type; self-hosted fonts in `/fonts` |
 
-Catalog shape lines up with a later ecomm core: product, variant, category, cart line, order summary. `price` is `null` on every variant. Checkout stores a sample order in `sessionStorage` and does not store card fields.
+Catalog shape lines up with a later ecomm core: product, variant, category, cart line, order summary. Checkout stores a sample order in `sessionStorage` and does not store card fields.
 
 ## Pages
 
@@ -47,22 +44,19 @@ Catalog shape lines up with a later ecomm core: product, variant, category, cart
 | Shipping/FFL + Refund & Return | `shipping.html` (`returns.html` forwards) |
 | Product Safety & Checkout Disclaimer | `safety.html` |
 | Privacy, terms | matching HTML files |
-| Brand | `brand.html` |
-| Performance | `performance.html` |
-| Deck | `AumakuaDefense-Presentation.html` |
-| SEO / AEO compare | `compare/AumakuaDefense-SEO-AEO-Compare.html` (facts file not edited) |
 
-Live KEEP urls map as: `/` → home, `/ols/products` → shop. The old live product slugs no longer map one-to-one: since 2026-10-23 the catalog holds four example items (`plate-carrier`, `owb-iwb-holster`, `rifle-scope`, `tactical-flashlight`), filter tags Optics, Holsters, Carriers, Lights. Example prices live in `priceLabel` only.
+Live KEEP urls map as: `/` → home, `/ols/products` → shop. The old live product slugs no longer map one-to-one: the catalog now holds the client's Live the Creed medical kits (`edc-pocket-trauma-kit`, `responder-ifak`, `direct-action-tourniquet-kit`) in one category, Medical Kits, with filter tags Trauma Kits and Tourniquets. Prices are the listed MAP. (From 2026-10-23 to PR #8 the catalog held four generic example items.)
 
 ## Age gate
 
-Full-screen dialog from `js/layout.js` until `localStorage.ad_age_ok` is `1`. Copy: “You must be 21 or older to enter this site.” Buttons: “I am 21 or older” and “I am under 21.” Escape does not close it. Focus stays in the dialog. Under 21 shows an exit message and does not set the flag. A note reads “Prototype — simulated age verification.”
+Full-screen dialog from `js/layout.js` until `localStorage.ad_age_ok` is `1`. Copy: “You must be 21 or older to enter this site.” Buttons: “I am 21 or older” and “I am under 21.” Escape does not close it. Focus stays in the dialog. Under 21 shows an exit message and does not set the flag. A note reads “Simulated age verification.”
 
 ## Changelog
 
 | Date | Change |
 |---|---|
-| 2026-10-13 | Prototype build: brand guide and Letter PDF, storefront, simulated cart and checkout, age gate, deck, scope stub. |
+| 2026-10-13 | Prototype build: storefront, simulated cart and checkout, age gate, scope stub. |
+| 2026-11-23 | `SCOPE.md` rewritten to the yavin-ops template: Node ecomm, Stripe, `app-shell-scaffold`. Review-only pages (brand guide, deck, performance, compare) were removed from the site earlier. |
 
 ## Admin prototype (`/admin/`)
 
