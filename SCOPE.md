@@ -27,7 +27,7 @@ integrations:
   # Recorded decision, Mike, 2026-11-23: Stripe. Agrees with features.payments.
   payment_gateway: "stripe"
   woocommerce_api: false
-  age_gate: false              # template flag is for WordPress; the 21+ gate is kept per Preserve below
+  age_gate: false              # template flag is for WordPress; the 21+ birthdate gate is custom app-level code (see Age gate section)
   spot_prices_ticker: false
   webinar_categories: false
   google_analytics: false
@@ -99,7 +99,7 @@ content_types:
     label: "State restrictions"
     mode: "cms"
     admin: true
-    notes: "Admin: admin/restrictions.html (example CA/WA magazine capacity). Rows are future examples while launch sells non-serialized items only."
+    notes: "Admin: admin/restrictions.html (example CA/WA magazine capacity). Rows are future examples while launch sells non-serialized items only. The coding agent builds this admin the way it understands it from the prototype stub; Rath adjusts after review (Rath, 2026-11-24)."
   - id: "ffl_dealers"
     label: "FFL dealers"
     mode: "cms"
@@ -307,6 +307,13 @@ Home order: hero, weave divider, Built for, Shop (catalog), Featured spotlight, 
 - Stripe: test mode for now (`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` test keys).
 - SendGrid: placeholder `SENDGRID_API_KEY` for now; domain authentication is pending (Rath is setting it up). The build, boot and checkout must not fail without a working SendGrid key: log and skip the send, and keep the submission or order. `SENDGRID_FROM_EMAIL`: `noreply@aumakuadefense.com` (placeholder, pending domain auth). `SENDGRID_FROM_NAME`: `Aumakua Defense`.
 
+## Age gate (Rath, 2026-11-24)
+
+- 21+ birthdate entry gate on every public page. Custom app-level code (not the WordPress age-gate flag).
+- Three inputs: month, day, year. Numbers only (`inputmode="numeric"`, numeric keypad on mobile). When a field is full (MM, DD, YYYY), focus moves automatically to the next field.
+- Compute age from the birthdate. Under 21 is blocked from entering the site. A pass is remembered (cookie) so the gate does not reappear on every page.
+- Keep the prototype's visual look and copy ("You must be 21 or older to enter this site.").
+
 ## Admin
 
 Static admin pages at `/admin/` (sign-in at `admin/index.html`), sample data only, noindex and disallowed in robots. Structure mirrors the MedRepsRX admin. Aumakua additions, each marked in the UI: FFL required / serialized product flag, split shipments (home + FFL dealer), FFL dealer lookup and manual review queue, state restrictions, multi-distributor API sync. Launch sells non-serialized accessories only; FFL rows are future examples. Page-to-feature map: `PROJECT_GUIDE.md`.
@@ -318,7 +325,7 @@ Mike supplied final client copy, used verbatim: About, Meet the Founder (`founde
 ## Preserve / Don't invent
 
 Preserve:
-- The 21+ age gate on every page (simulated in the prototype; copy "You must be 21 or older to enter this site."). Real verification method is not decided.
+- The 21+ age gate on every page (simulated in the prototype; copy "You must be 21 or older to enter this site."). Built as a birthdate entry gate per the Age gate section (Rath, 2026-11-24).
 - Client copy used verbatim (About, Founder, Privacy, Terms, Shipping/FFL, Refund & Return, Safety, FAQ), including the FAQ "($50 average)". Terms and Shipping stay exactly as on the prototype for now and will be revised later (Rath, 2026-11-24).
 - NAP, owner Josh Kaikala, tagline, and the separate FFL email.
 - Home section order and motion rules above.
@@ -341,7 +348,6 @@ All items below are non-blocking for Phase 3: none changes a page, a mode, an in
 - Non-blocking: business hours (client has not supplied them; the field stays blank).
 - Non-blocking: whether firearms or regulated parts will be sold later. Launch is non-serialized accessories only; FFL dealer, FFL review and state-restriction rows stay future examples.
 - Non-blocking: which distributors, if any, get API sync later (`distributor_sync` is external and not in the launch build).
-- Non-blocking: real age verification method for the 21+ gate.
 - Non-blocking: phone has a 425 (WA) area code with a Phoenix address; client to confirm.
 - Non-blocking: legal copy covers firearms/ammo sales while launch catalog is non-FFL. Ship Terms and Shipping as-is; revised later (Rath, 2026-11-24).
 - Non-blocking: DO region and team, and the scaffold tag, are set by Rath/setup.
@@ -353,7 +359,7 @@ All items below are non-blocking for Phase 3: none changes a page, a mode, an in
 - QuickBooks, Woo sync, campaign pages.
 - Live distributor API sync, FFL dealer lookup and manual FFL review automation (future).
 - Fulfillment (the site stops at payment).
-- Real age verification (until the method is decided).
+- ID-based or third-party age verification (launch uses the birthdate gate).
 - Any payment gateway other than Stripe.
 
 ## Notes for the coding agent
