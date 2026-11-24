@@ -12,10 +12,10 @@ agency: "Yavin"
 agency_github_org: "Yavin-Digital"
 agency_local_folder: ""        # not needed: the automated loop reads the prototype from GitHub
 
-# Recorded decision, Mike, 2026-11-23: Node ecomm.
+# Recorded decision, Mike, 2026-11-23: Node ecomm. Confirmed by Rath Kaikala, 2026-11-24.
 project_type: "ecomm"
 
-# Recorded decision, Mike, 2026-11-23.
+# Recorded decision, Mike, 2026-11-23. Confirmed by Rath Kaikala, 2026-11-24.
 scaffold_repo: "app-shell-scaffold"
 scaffold_version: ""           # Setup records the tag or SHA at clone time (non-blocking)
 
@@ -23,11 +23,11 @@ integrations:
   database: true
   auth: true                   # admin sign-in and user roles
   storage: true                # product images
-  email_sendgrid: true         # contact form, order and FFL notification emails
+  email_sendgrid: true         # contact form, order and FFL notification emails. Placeholder key until domain auth is done (Rath, 2026-11-24); see Environment
   # Recorded decision, Mike, 2026-11-23: Stripe. Agrees with features.payments.
   payment_gateway: "stripe"
   woocommerce_api: false
-  age_gate: false              # template flag is for WordPress; the 21+ gate is kept per Preserve below
+  age_gate: false              # template flag is for WordPress; the 21+ birthdate gate is custom app-level code (see Age gate section)
   spot_prices_ticker: false
   webinar_categories: false
   google_analytics: false
@@ -37,11 +37,11 @@ integrations:
 
 features:
   blog_mode: "none"            # the prototype has no blog page, posts or blog nav
-  forms: "contact"             # contact.html: name, email, message, email-list checkbox
-  auth: "credentials"          # admin sign-in plus user and role admin (users.html, user.html)
+  forms: "contact"             # contact.html: name, email, message, email-list checkbox. Recipient info@aumakuadefense.com (Rath, 2026-11-24); email-list sign-ups stored only
+  auth: "credentials"          # admin sign-in, user and role admin (users.html, user.html), plus customer login/accounts (Rath, 2026-11-24)
   ecommerce: "checkout"        # catalog, cart, checkout, order confirmation
   payments: "stripe"           # recorded decision, Mike, 2026-11-23
-  affiliates: "on"             # admin stubs affiliates.html and applications.html; admin mirrors MedRepsRX
+  affiliates: "on"             # confirmed by Rath, 2026-11-24. Admin affiliates.html and applications.html; admin mirrors MedRepsRX
   qbo: "none"
   woo_sync: "none"
   campaign: "none"
@@ -74,7 +74,7 @@ content_types:
     label: "Users and roles"
     mode: "cms"
     admin: true
-    notes: "Admin: admin/users.html, admin/user.html (Super Admin, Admin, Customer)."
+    notes: "Admin: admin/users.html, admin/user.html (Super Admin, Admin, Customer). Customers can sign in to an account; guest checkout also stays available (Rath, 2026-11-24)."
   - id: "bundles"
     label: "Bundles"
     mode: "cms"
@@ -89,17 +89,17 @@ content_types:
     label: "Tax rates"
     mode: "cms"
     admin: true
-    notes: "Per-state rates plus a fallback. Admin: admin/tax.html."
+    notes: "Per-state rates plus a fallback. Admin: admin/tax.html. Operator-managed: the operator fills in the table. Seed it empty; do not invent rates. No Stripe Tax (Rath, 2026-11-24)."
   - id: "shipping_zones"
     label: "Shipping zones and methods"
     mode: "cms"
     admin: true
-    notes: "Admin: admin/shipping.html."
+    notes: "Admin: admin/shipping.html. Operator-managed: seed empty, the operator fills in zones, methods and rates. Do not invent rates."
   - id: "state_restrictions"
     label: "State restrictions"
     mode: "cms"
     admin: true
-    notes: "Admin: admin/restrictions.html (example CA/WA magazine capacity). Rows are future examples while launch sells non-serialized items only."
+    notes: "Admin: admin/restrictions.html (example CA/WA magazine capacity). Rows are future examples while launch sells non-serialized items only. The coding agent builds this admin the way it understands it from the prototype stub; Rath adjusts after review (Rath, 2026-11-24)."
   - id: "ffl_dealers"
     label: "FFL dealers"
     mode: "cms"
@@ -257,6 +257,11 @@ prototype:
 
 # Aumakua Defense: Project Scope
 
+## Approval
+
+- Client sign-off confirmed by Rath Kaikala, 2026-11-24.
+- `project_type: ecomm` and `scaffold_repo: app-shell-scaffold` confirmed by Rath Kaikala, 2026-11-24.
+
 ## Overview
 
 Aumakua Defense is a Node ecommerce site (project type `ecomm`, scaffold `app-shell-scaffold`, `@yavin/feature-ecomm-core`, `@yavin/feature-payments` with Stripe). The owner is Josh Kaikala, Founder. The site sells Live the Creed medical kits (EDC Pocket Trauma Kit, Responder IFAK, Direct Action Tourniquet Kit) from the client's product list. The admin mirrors the MedRepsRX backend (`Yavin-Digital/MedRepsRX`, `app/(admin)/admin/*`) because Aumakua will use the same backend.
@@ -286,6 +291,29 @@ History: on 2026-10-23 Mike replaced the four live-store slugs with four generic
 
 Home order: hero, weave divider, Built for, Shop (catalog), Featured spotlight, brand story, gear-up CTA. Product-card tilt max 2.5deg (Y) / 2deg (X) with eased smoothing; hero parallax about half the original strength; all motion off under prefers-reduced-motion; embers kept.
 
+## Checkout, accounts, tax and shipping (Rath, 2026-11-24)
+
+- Checkout supports both guest checkout and customer login/accounts. Customer sign-in, registration and password reset reuse the admin sign-in look (`admin/index.html`) and the site chrome; the prototype has no separate customer page.
+- No Stripe Tax. Tax comes from the admin tax rate table (`admin/tax.html`), which the operator fills in. Seed it empty.
+- Shipping zones, methods and rates are operator-managed in `admin/shipping.html`. Seed them empty. Do not invent rates.
+
+## Forms and email (Rath, 2026-11-24)
+
+- Contact form recipient: `info@aumakuadefense.com`.
+- Email-list sign-ups (contact form checkbox) are stored in the database only. No list provider.
+
+## Environment (Rath, 2026-11-24)
+
+- Stripe: test mode for now (`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` test keys).
+- SendGrid: placeholder `SENDGRID_API_KEY` for now; domain authentication is pending (Rath is setting it up). The build, boot and checkout must not fail without a working SendGrid key: log and skip the send, and keep the submission or order. `SENDGRID_FROM_EMAIL`: `noreply@aumakuadefense.com` (placeholder, pending domain auth). `SENDGRID_FROM_NAME`: `Aumakua Defense`.
+
+## Age gate (Rath, 2026-11-24)
+
+- 21+ birthdate entry gate on every public page. Custom app-level code (not the WordPress age-gate flag).
+- Three inputs: month, day, year. Numbers only (`inputmode="numeric"`, numeric keypad on mobile). When a field is full (MM, DD, YYYY), focus moves automatically to the next field.
+- Compute age from the birthdate. Under 21 is blocked from entering the site. A pass is remembered (cookie) so the gate does not reappear on every page.
+- Keep the prototype's visual look and copy ("You must be 21 or older to enter this site.").
+
 ## Admin
 
 Static admin pages at `/admin/` (sign-in at `admin/index.html`), sample data only, noindex and disallowed in robots. Structure mirrors the MedRepsRX admin. Aumakua additions, each marked in the UI: FFL required / serialized product flag, split shipments (home + FFL dealer), FFL dealer lookup and manual review queue, state restrictions, multi-distributor API sync. Launch sells non-serialized accessories only; FFL rows are future examples. Page-to-feature map: `PROJECT_GUIDE.md`.
@@ -297,8 +325,8 @@ Mike supplied final client copy, used verbatim: About, Meet the Founder (`founde
 ## Preserve / Don't invent
 
 Preserve:
-- The 21+ age gate on every page (simulated in the prototype; copy "You must be 21 or older to enter this site."). Real verification method is not decided.
-- Client copy used verbatim (About, Founder, Privacy, Terms, Shipping/FFL, Refund & Return, Safety, FAQ), including the FAQ "($50 average)".
+- The 21+ age gate on every page (simulated in the prototype; copy "You must be 21 or older to enter this site."). Built as a birthdate entry gate per the Age gate section (Rath, 2026-11-24).
+- Client copy used verbatim (About, Founder, Privacy, Terms, Shipping/FFL, Refund & Return, Safety, FAQ), including the FAQ "($50 average)". Terms and Shipping stay exactly as on the prototype for now and will be revised later (Rath, 2026-11-24).
 - NAP, owner Josh Kaikala, tagline, and the separate FFL email.
 - Home section order and motion rules above.
 - Admin structure mirrors MedRepsRX, with the Aumakua additions.
@@ -307,8 +335,8 @@ Preserve:
 - Launch sells non-serialized accessories only.
 
 Don't invent:
-- A blog, news, customer accounts or wishlists, reviews or testimonials, or any page not in `pages`.
-- Hours, a founder photo, stats, or legality or shipping claims beyond the client copy.
+- A blog, news, wishlists, reviews or testimonials, or any page not in `pages` (customer login/account screens are the one addition, per the Checkout section).
+- Hours, a founder photo, stats, tax or shipping rates, or legality or shipping claims beyond the client copy.
 - Firearms, receivers, suppressors, ammo or magazines in the catalog.
 - QuickBooks, Woo sync, campaign pages, or other payment gateways.
 - Any prototype or review wording in the live build.
@@ -320,12 +348,10 @@ All items below are non-blocking for Phase 3: none changes a page, a mode, an in
 - Non-blocking: business hours (client has not supplied them; the field stays blank).
 - Non-blocking: whether firearms or regulated parts will be sold later. Launch is non-serialized accessories only; FFL dealer, FFL review and state-restriction rows stay future examples.
 - Non-blocking: which distributors, if any, get API sync later (`distributor_sync` is external and not in the launch build).
-- Non-blocking: whether Aumakua will actually run an affiliate program. The admin stubs exist because the admin mirrors MedRepsRX; `features.affiliates: on` follows that decision.
-- Non-blocking: real age verification method for the 21+ gate.
-- Non-blocking: where contact-form submissions and email-list sign-ups are delivered.
 - Non-blocking: phone has a 425 (WA) area code with a Phoenix address; client to confirm.
-- Non-blocking: legal copy covers firearms/ammo sales while launch catalog is non-FFL.
+- Non-blocking: legal copy covers firearms/ammo sales while launch catalog is non-FFL. Ship Terms and Shipping as-is; revised later (Rath, 2026-11-24).
 - Non-blocking: DO region and team, and the scaffold tag, are set by Rath/setup.
+- Non-blocking: SendGrid domain authentication and the real API key (Rath setting up; placeholder until then).
 
 ## Out of Scope
 
@@ -333,14 +359,15 @@ All items below are non-blocking for Phase 3: none changes a page, a mode, an in
 - QuickBooks, Woo sync, campaign pages.
 - Live distributor API sync, FFL dealer lookup and manual FFL review automation (future).
 - Fulfillment (the site stops at payment).
-- Real age verification (until the method is decided).
+- ID-based or third-party age verification (launch uses the birthdate gate).
 - Any payment gateway other than Stripe.
 
 ## Notes for the coding agent
 
-- Build on `app-shell-scaffold` with `@yavin/feature-ecomm-core` and `@yavin/feature-payments` (`features.payments: stripe`), `@yavin/feature-forms`, `@yavin/feature-auth-admin` and `@yavin/feature-media`, each pinned to the newest exact tag. Do not use the deprecated `ecomm-scaffold`.
+- Build on `app-shell-scaffold` with `@yavin/feature-ecomm-core` and `@yavin/feature-payments` (`features.payments: stripe`), `@yavin/feature-forms`, `@yavin/feature-auth-admin`, `@yavin/feature-media` and `@yavin/feature-affiliates` (`features.affiliates: on`, `AFFILIATE_PROGRAM_ENABLED=true`), each pinned to the newest exact tag. Install order per `FEATURE-CATALOG.md`. Do not use the deprecated `ecomm-scaffold`.
 - Products, categories and every `cms` content type read from the database. Do not ship them from `js/site.js` or HTML.
 - Admin pages in the prototype are visual only; build CRUD per `content_types`.
 - Prototype lives in GitHub and at the review URL. Do not copy it into the app repo.
 - `.md` files must not be served by the production site.
 - Page-to-feature map of the admin: `PROJECT_GUIDE.md`.
+- Tax and shipping tables seed empty; no Stripe Tax. Missing SendGrid key must not break the build or checkout.
