@@ -70,7 +70,7 @@ Static HTML, shared styles in `admin/admin.css` on top of `css/tokens.css`. Samp
 | Order detail (items, totals, OrderEvent history, notes, status/tracking actions, full/partial refund) | `admin/order.html` |
 | Products (ProductsTable, status/stock filters, overrides) | `admin/products.html`, `admin/product.html` |
 | Users + user detail (roles, notes, resend invite, convert to affiliate) | `admin/users.html`, `admin/user.html` |
-| Affiliates, Applications | `admin/affiliates.html`, `admin/applications.html` (confirm Aumakua needs them) |
+| Affiliates, Applications | `admin/affiliates.html`, `admin/applications.html` (confirmed on by Rath, 2026-11-24) |
 | Bundles | `admin/bundles.html` |
 | Coupons | `admin/coupons.html` |
 | Tax Rates (per state + fallback) | `admin/tax.html` |
